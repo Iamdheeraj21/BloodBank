@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF3838"
+    tools:context=".RegisterActivity"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registration Page"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:id="@+id/textview1"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext1"
+        android:layout_below="@id/textview1"
+        android:drawableStart="@drawable/ic_baseline_person_24"
+        android:layout_marginTop="35sp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="40dp"
+        android:hint="Type a full name!"
+        tools:ignore="HardcodedText"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext2"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="40dp"
+        android:layout_below="@id/edittext1"
+        android:hint="Username"
+        tools:ignore="HardcodedText"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext3"
+        android:layout_below="@id/edittext2"
+        android:hint="Email"
+        android:layout_marginTop="20sp"
+        tools:ignore="HardcodedText"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="40dp"
+        android:importantForAutofill="no"
+        android:inputType="text"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext4"
+        android:layout_below="@id/edittext3"
+        android:hint="Create your password"
+        tools:ignore="HardcodedText"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20sp"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        tools:ignore="HardcodedText"
+        android:layout_below="@id/checkbox1"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext4"
+        android:text="Are you blood donor?"
+        android:layout_marginStart="45dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        tools:ignore="HardcodedText" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yes"
+        android:id="@+id/checkbox1"
+        android:textStyle="bold"
+        android:layout_below="@id/edittext4"
+        android:layout_marginStart="250dp"/>
+
+
+</RelativeLayout>

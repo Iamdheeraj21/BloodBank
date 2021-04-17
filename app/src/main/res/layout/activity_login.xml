@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F32C2C"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login Page"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:id="@+id/textview1"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Login_edittext1"
+        android:layout_below="@id/textview1"
+        android:layout_marginTop="35sp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="40dp"
+        android:hint="Type a Email"
+        tools:ignore="HardcodedText"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Login_edittext2"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="40dp"
+        android:layout_below="@id/Login_edittext1"
+        android:hint="Username"
+        tools:ignore="HardcodedText"
+        android:importantForAutofill="no"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recaptcha"
+        android:id="@+id/recaptcha"
+        android:layout_below="@id/Login_edittext2"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="50dp"
+        android:textSize="30sp"
+        tools:ignore="HardcodedText" />
+    <EditText
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:hint="enter recaptcha!"
+        android:id="@+id/edittext_recaptcha"
+        tools:ignore="HardcodedText,LabelFor"
+        android:layout_below="@id/Login_edittext2"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20sp"
+        android:autofillHints="no"
+        android:inputType="text" />
+
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Login"
+        android:id="@+id/login_button"
+    tools:ignore="HardcodedText"
+    android:layout_below="@id/forget_password"
+    android:backgroundTint="@color/black"
+    android:layout_marginTop="30dp"
+    android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forget Password"
+        android:id="@+id/forget_password"
+        tools:ignore="HardcodedText"
+        android:layout_marginStart="50dp"
+        android:layout_below="@id/recaptcha"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

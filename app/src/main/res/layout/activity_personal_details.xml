@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF3838"
+    tools:context=".Personal_Details_Activity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personal Details"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:id="@+id/textview2"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender :-"
+        android:layout_below="@id/textview2"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="56dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:textSize="20sp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/radioButton1"
+        android:textStyle="bold"
+        android:layout_below="@id/textview2"
+        tools:ignore="HardcodedText" />
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/radioButton2"
+        android:layout_below="@id/textview2"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateofbirth"
+        android:layout_below="@id/radioButton1"
+        android:layout_marginTop="20sp"
+        android:text="Date of Birth :-"
+        android:textSize="20sp"
+        android:layout_marginStart="56dp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dob"
+        android:layout_below="@id/radioButton2"
+        android:layout_marginTop="10dp"
+        android:text="Select Date"
+        tools:ignore="HardcodedText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dobtext"
+        android:layout_below="@id/radioButton2"
+        android:layout_marginTop="20dp"
+        android:text="Select Date"
+        tools:ignore="HardcodedText"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="100dp"
+        android:backgroundTint="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bloodgroup"
+        android:layout_below="@id/dateofbirth"
+        android:layout_marginTop="30sp"
+        android:text="Blood Group:-"
+        android:textSize="20sp"
+        android:layout_marginStart="56dp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <Spinner
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:id="@+id/blood_group"
+        android:layout_below="@id/dob"
+        android:layout_marginEnd="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15sp"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageview2"
+        android:layout_marginStart="50dp"
+        android:layout_below="@id/blood_group"
+        android:layout_marginTop="20sp"
+        tools:ignore="ContentDescription"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="Select Image"
+        android:id="@+id/select_image"
+        android:layout_below="@id/blood_group"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="65dp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitButton"
+        android:backgroundTint="@color/black"
+        android:text="Submit Information"
+        android:layout_below="@id/imageview2"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+
+
+
+
+</RelativeLayout>
