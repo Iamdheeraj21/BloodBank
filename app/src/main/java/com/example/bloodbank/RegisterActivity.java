@@ -4,16 +4,18 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,12 +27,17 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity
 {
-    EditText name,username,email,password;
+    EditText name,username,email,password,BloodGroupName,DateOfBirth;
     ProgressDialog progressDialog;
     Button submit_button;
+    TextView dobTextView;
+    RadioButton genderRadioButton;
     FirebaseAuth firebaseAuth;
     CheckBox checkBox;
     DatabaseReference databaseReference;
+    RadioGroup radioGroup;
+    //Blood Group Name
+    String[] bloodGroupName={"Select One","A+","A-","B+","B-","O+","O-","AB+","AB-"};
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,39 +46,44 @@ public class RegisterActivity extends AppCompatActivity
         initView();
         submit_button.setOnClickListener(v ->
         {
-            String edittext_name,edittext_user,edittext_email,edittext_password;
+            int selectedId=radioGroup.getCheckedRadioButtonId();
+            String edittext_name,edittext_user,edittext_email,edittext_password,edittext_BloodGroupName,genderName,dateofbirth;
             edittext_name=name.getText().toString();
             edittext_email=email.getText().toString();
             edittext_user=username.getText().toString();
             edittext_password=password.getText().toString();
-
-            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if(checkBox.isChecked()){
-                    checkBox.setText("Yes");
-                }else {
-                    checkBox.setText("No");
-                }
-            });
-
-            if(edittext_email.equals(""))
-                email.setError("Fill the blank!");
-            else if(edittext_name.equals(""))
-                name.setError("Fill the blank!");
-            else if(edittext_user.equals(""))
-                username.setError("Fill the blank!");
-            else if(edittext_password.equals(""))
-                password.setError("Fill the blank!");
-            else if(edittext_email.length() >=7)
+            dateofbirth=DateOfBirth.getText().toString();
+            edittext_BloodGroupName=BloodGroupName.getText().toString();
+            if(edittext_email.equals("") || edittext_name.equals("") || edittext_user.equals("")
+                    || edittext_password.equals("") || edittext_BloodGroupName.equals("")
+                    || dateofbirth.equals(""))
+                Toast.makeText(getApplicationContext(),"Fill the blank",Toast.LENGTH_SHORT).show();
+            else if(edittext_email.length()<=7)
                 password.setError("Please enter password at-least 8 digits");
+            else if(!(edittext_BloodGroupName.length() ==2))
+                BloodGroupName.setError("Two characters are allowed...");
             else
+                genderRadioButton= findViewById(selectedId);
+                genderName=genderRadioButton.getText().toString();
                 if(checkBox.isChecked())
-                    registerBloodDonor(edittext_name,edittext_user,edittext_email,edittext_password);
+                    registerBloodDonor(edittext_name,edittext_user,edittext_email,edittext_password,edittext_BloodGroupName,genderName,dateofbirth);
                 else
-                    registerNotBloodDonor(edittext_name,edittext_user,edittext_email,edittext_password);
+                    registerNotBloodDonor(edittext_name,edittext_user,edittext_email,edittext_password,edittext_BloodGroupName,genderName,dateofbirth);
+        });
+
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(checkBox.isChecked()){
+                checkBox.setText("Yes");
+            }else {
+                checkBox.setText("No");
+            }
         });
     }
 
-    private void registerNotBloodDonor(String edit_name,String edit_username,String edit_email,String edit_password)
+    //Only for User
+    private void registerNotBloodDonor(String edit_name,String edit_username,String edit_email,
+                                       String edit_password,String edittext_BloodGroupName,
+                                       String genderName,String dob)
     {
         progressDialog.setTitle("Please wait few minutes...");
         progressDialog.show();
@@ -89,10 +101,10 @@ public class RegisterActivity extends AppCompatActivity
                         hashMap.put("fullname",edit_name);
                         hashMap.put("username", edit_username);
                         hashMap.put("email", edit_email);
-                        hashMap.put("gender","");
-                        hashMap.put("dob","");
-                        hashMap.put("imageurl","");
-                        hashMap.put("bloodgroup","");
+                        hashMap.put("gender",genderName);
+                        hashMap.put("dob",dob);
+                        hashMap.put("imageurl","default");
+                        hashMap.put("bloodgroup",edittext_BloodGroupName);
 
                         databaseReference.setValue(hashMap).addOnCompleteListener(task1 ->
                         {
@@ -116,7 +128,10 @@ public class RegisterActivity extends AppCompatActivity
         });
     }
 
-    private void registerBloodDonor(String edit_name,String edit_username,String edit_email,String edit_password)
+    //For Blood Donors
+    private void registerBloodDonor(String edit_name,String edit_username,String edit_email,
+                                    String edit_password,String edittext_BloodGroupName,
+                                    String genderName,String dob)
     {
         progressDialog.setTitle("Please wait few minutes...");
         progressDialog.show();
@@ -137,16 +152,23 @@ public class RegisterActivity extends AppCompatActivity
                     hashMap.put("fullname",edit_name);
                     hashMap.put("username", edit_username);
                     hashMap.put("email", edit_email);
-                    hashMap.put("gender","");
-                    hashMap.put("dob","");
+                    hashMap.put("gender",genderName);
+                    hashMap.put("dob",dob);
                     hashMap.put("imageurl","");
-                    hashMap.put("bloodgroup","");
+                    hashMap.put("bloodgroup",edittext_BloodGroupName);
 
                     databaseReference.setValue(hashMap).addOnCompleteListener(task1 ->
                     {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Account successfully created..", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                        if(task1.isSuccessful()){
+                            firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task2 -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(RegisterActivity.this, "Account successfully created and check you email for verification..", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                            }).addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                        }
                     }).addOnFailureListener(e -> {
                         progressDialog.dismiss();
                         Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -163,9 +185,21 @@ public class RegisterActivity extends AppCompatActivity
         name=findViewById(R.id.edittext1);
         email=findViewById(R.id.edittext3);
         username=findViewById(R.id.edittext2);
+        submit_button=findViewById(R.id.create_button);
         checkBox=findViewById(R.id.checkbox1);
         password=findViewById(R.id.edittext4);
+        DateOfBirth=findViewById(R.id.dob);
+        BloodGroupName=findViewById(R.id.blood_group);
+        dobTextView=findViewById(R.id.dobtext);
         progressDialog=new ProgressDialog(this);
+        radioGroup=findViewById(R.id.radioGroup);
         firebaseAuth = FirebaseAuth.getInstance();
+        ArrayAdapter arrayAdapter=new ArrayAdapter(this, android.R.layout.simple_spinner_item,bloodGroupName);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        dobTextView.setVisibility(View.INVISIBLE);
     }
 }

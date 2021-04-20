@@ -19,13 +19,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Random;
+
 public class LoginActivity extends AppCompatActivity
 {
-    Button btn1,btn2;
+    Button btn1,btn2,btn3;
     TextView recaptcha;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     EditText email,password,editText_recaptcha;
+    Random random;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,6 +59,9 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
+        btn3.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+        });
     }
 
     private void loginProcess(String email_edittext, String password_edittext)
@@ -90,6 +96,7 @@ public class LoginActivity extends AppCompatActivity
     {
         btn1=findViewById(R.id.login_button);
         btn2=findViewById(R.id.forget_password);
+        btn3=findViewById(R.id.register_button);
         recaptcha=findViewById(R.id.recaptcha);
         email=findViewById(R.id.Login_edittext1);
         password=findViewById(R.id.Login_edittext2);
@@ -97,6 +104,12 @@ public class LoginActivity extends AppCompatActivity
         firebaseAuth= FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Please wait few moments...");
+        random=new Random();
+        int recaptcha_num=random.nextInt(2500)+5000;
+        String recaptcha_number=String.valueOf(recaptcha_num);
+        recaptcha.setText(recaptcha_number);
+
+
     }
 
     @Override
@@ -113,9 +126,5 @@ public class LoginActivity extends AppCompatActivity
         AlertDialog alertDialog=alert.create();
         alertDialog.setTitle("Notice");
         alertDialog.show();
-        int min = 1000;
-        int max = 9000;
-        int recaptchaNumber=(int)Math.floor(Math.random()*(max-min+1)+min);
-        recaptcha.setText(recaptchaNumber);
     }
 }

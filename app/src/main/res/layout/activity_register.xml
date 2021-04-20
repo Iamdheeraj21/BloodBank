@@ -9,23 +9,13 @@
     tools:context=".RegisterActivity"
     tools:ignore="HardcodedText">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registration Page"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:id="@+id/textview1"
-        android:layout_marginTop="150dp"
-        android:layout_centerHorizontal="true"
-        tools:ignore="HardcodedText" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edittext1"
-        android:layout_below="@id/textview1"
         android:drawableStart="@drawable/ic_baseline_person_24"
-        android:layout_marginTop="35sp"
+        android:layout_marginTop="30sp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="40dp"
         android:hint="Type a full name!"
@@ -74,6 +64,7 @@
         android:layout_height="wrap_content"
         android:text="Create Account"
         tools:ignore="HardcodedText"
+        android:id="@+id/create_button"
         android:layout_below="@id/checkbox1"
         android:backgroundTint="@color/black"
         android:layout_marginTop="20dp"
@@ -82,12 +73,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext4"
+        android:layout_below="@id/bloodgroup"
         android:text="Are you blood donor?"
         android:layout_marginStart="45dp"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         tools:ignore="HardcodedText" />
 
     <CheckBox
@@ -95,9 +86,112 @@
         android:layout_height="wrap_content"
         android:text="Yes"
         android:id="@+id/checkbox1"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
+        android:layout_below="@id/bloodgroup"
+        android:layout_marginStart="260dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview3"
+        android:text="Gender :-"
         android:layout_below="@id/edittext4"
-        android:layout_marginStart="250dp"/>
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="45dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/radioGroup"
+    android:orientation="horizontal"
+    android:layout_below="@id/edittext4"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="150dp">
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:textSize="20sp"
+        android:layout_marginStart="0dp"
+        android:id="@+id/radioButton1"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:id="@+id/radioButton2"
+        tools:ignore="HardcodedText" />
+</RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateofbirth"
+        android:layout_below="@id/textview3"
+        android:layout_marginTop="25sp"
+        android:text="Date of Birth :-"
+        android:textSize="20sp"
+        android:layout_marginStart="45dp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/dob"
+        android:layout_below="@id/textview3"
+        android:layout_marginTop="20dp"
+        android:hint="dd/mm/yy"
+        tools:ignore="HardcodedText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="70dp"
+        android:backgroundTint="@color/black"
+        android:autofillHints="no"
+        android:inputType="datetime" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dobtext"
+        android:layout_below="@id/radioGroup"
+        android:layout_marginTop="20dp"
+        android:text="Select Date"
+        tools:ignore="HardcodedText"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="100dp"
+        android:backgroundTint="@color/black"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bloodgroup"
+        android:layout_below="@id/dateofbirth"
+        android:layout_marginTop="30sp"
+        android:text="Blood Group:-"
+        android:textSize="20sp"
+        android:layout_marginStart="45dp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:id="@+id/blood_group"
+        android:layout_below="@id/dob"
+        android:layout_marginEnd="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15sp"
+        android:autofillHints="no"
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
 
 </RelativeLayout>
