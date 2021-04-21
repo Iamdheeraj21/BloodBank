@@ -1,197 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF3838"
     tools:context=".RegisterActivity"
-    tools:ignore="HardcodedText">
-
+    android:background="#E61818">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext1"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText1"
+        android:hint="Enter the name!"
         android:drawableStart="@drawable/ic_baseline_person_24"
-        android:layout_marginTop="30sp"
-        android:layout_marginStart="45dp"
+        android:drawablePadding="10dp"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:hint="Type a full name!"
-        tools:ignore="HardcodedText"
-        android:importantForAutofill="no"
-        android:inputType="text" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext2"
-        android:layout_marginTop="20sp"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="40dp"
-        android:layout_below="@id/edittext1"
-        android:hint="Username"
-        tools:ignore="HardcodedText"
-        android:importantForAutofill="no"
-        android:inputType="text" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext3"
-        android:layout_below="@id/edittext2"
-        android:hint="Email"
-        android:layout_marginTop="20sp"
-        tools:ignore="HardcodedText"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="40dp"
-        android:importantForAutofill="no"
-        android:inputType="text"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext4"
-        android:layout_below="@id/edittext3"
-        android:hint="Create your password"
-        tools:ignore="HardcodedText"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="20sp"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        android:layout_marginTop="10dp"
+        tools:ignore="HardcodedText" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        tools:ignore="HardcodedText"
-        android:id="@+id/create_button"
-        android:layout_below="@id/checkbox1"
-        android:backgroundTint="@color/black"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText2"
+        android:layout_below="@id/editText1"
+        android:hint="Username"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText3"
+        android:layout_below="@id/editText2"
+        android:hint="Email Address"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText4"
+        android:layout_below="@id/editText3"
+        android:hint="Create a password"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bloodgroup"
-        android:text="Are you blood donor?"
-        android:layout_marginStart="45dp"
+        android:textSize="20sp"
+        android:text="Date of Birth"
+        android:textStyle="bold"
+        android:layout_below="@id/editText4"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText5"
+        android:hint="dd/mm/yy"
+        android:layout_below="@id/editText4"
+        android:layout_marginStart="200dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Group"
+        android:layout_below="@id/editText5"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginTop="30dp"
         tools:ignore="HardcodedText" />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText6"
+        android:layout_below="@id/editText5"
+        android:layout_marginStart="200dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:layout_below="@id/editText6"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radiogroup"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="150dp"
+        android:layout_below="@id/editText6">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:id="@+id/radioButton1"
+            tools:ignore="HardcodedText" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:id="@+id/radioButton2"
+            tools:ignore="HardcodedText" />
+
+    </RadioGroup>
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Are you Blood Donor?"
+    android:layout_below="@id/radiogroup"
+    android:layout_marginTop="33dp"
+    android:layout_marginStart="40dp"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    tools:ignore="HardcodedText" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Yes"
-        android:id="@+id/checkbox1"
+        android:id="@+id/checkbox"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:layout_below="@id/bloodgroup"
-        android:layout_marginStart="260dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textview3"
-        android:text="Gender :-"
-        android:layout_below="@id/edittext4"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="45dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_below="@id/radiogroup"
+        android:layout_marginStart="250dp"
         tools:ignore="HardcodedText" />
 
-<RadioGroup
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/radioGroup"
-    android:orientation="horizontal"
-    android:layout_below="@id/edittext4"
-    android:layout_marginTop="20dp"
-    android:layout_marginStart="150dp">
-
-    <RadioButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Male"
-        android:textSize="20sp"
-        android:layout_marginStart="0dp"
-        android:id="@+id/radioButton1"
-        android:textStyle="bold"
+        android:text="Create Account"
+        android:id="@+id/button1"
+        android:layout_below="@id/checkbox"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
         tools:ignore="HardcodedText" />
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginStart="10dp"
-        android:id="@+id/radioButton2"
-        tools:ignore="HardcodedText" />
-</RadioGroup>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dateofbirth"
-        android:layout_below="@id/textview3"
-        android:layout_marginTop="25sp"
-        android:text="Date of Birth :-"
-        android:textSize="20sp"
-        android:layout_marginStart="45dp"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
-    <EditText
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/dob"
-        android:layout_below="@id/textview3"
-        android:layout_marginTop="20dp"
-        android:hint="dd/mm/yy"
-        tools:ignore="HardcodedText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="70dp"
-        android:backgroundTint="@color/black"
-        android:autofillHints="no"
-        android:inputType="datetime" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dobtext"
-        android:layout_below="@id/radioGroup"
-        android:layout_marginTop="20dp"
-        android:text="Select Date"
-        tools:ignore="HardcodedText"
-        android:visibility="gone"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="100dp"
-        android:backgroundTint="@color/black"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bloodgroup"
-        android:layout_below="@id/dateofbirth"
-        android:layout_marginTop="30sp"
-        android:text="Blood Group:-"
-        android:textSize="20sp"
-        android:layout_marginStart="45dp"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:id="@+id/blood_group"
-        android:layout_below="@id/dob"
-        android:layout_marginEnd="70dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15sp"
-        android:autofillHints="no"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
 
 
 </RelativeLayout>

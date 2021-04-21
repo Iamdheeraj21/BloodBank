@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodBank"
         tools:ignore="AllowBackup">
-        <activity android:name=".BloodDonorsActivity"></activity>
+        <activity android:name=".RegisterActivity"
+            android:label="Register Activity"
+            android:parentActivityName=".LoginActivity"/>
+        <activity android:name=".BloodDonorsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".About_Us" />
         <activity
@@ -24,10 +27,6 @@
         <activity
             android:name=".Personal_Details_Activity"
             android:label="Details Activity" />
-        <activity
-            android:name=".RegisterActivity"
-            android:label="Register Activity"
-            android:parentActivityName=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>

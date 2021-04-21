@@ -5,201 +5,231 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tapadoo.alerter.Alerter;
 
 import java.util.HashMap;
 
-public class RegisterActivity extends AppCompatActivity
-{
-    EditText name,username,email,password,BloodGroupName,DateOfBirth;
-    ProgressDialog progressDialog;
-    Button submit_button;
-    TextView dobTextView;
-    RadioButton genderRadioButton;
-    FirebaseAuth firebaseAuth;
+public class RegisterActivity extends AppCompatActivity {
+    EditText editText1, editText2, editText3, editText4, editText5, editText6;
+    Button btn1;
     CheckBox checkBox;
-    DatabaseReference databaseReference;
     RadioGroup radioGroup;
-    //Blood Group Name
-    String[] bloodGroupName={"Select One","A+","A-","B+","B-","O+","O-","AB+","AB-"};
+    FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+    ProgressDialog progressDialog;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        initView();
-        submit_button.setOnClickListener(v ->
-        {
-            int selectedId=radioGroup.getCheckedRadioButtonId();
-            String edittext_name,edittext_user,edittext_email,edittext_password,edittext_BloodGroupName,genderName,dateofbirth;
-            edittext_name=name.getText().toString();
-            edittext_email=email.getText().toString();
-            edittext_user=username.getText().toString();
-            edittext_password=password.getText().toString();
-            dateofbirth=DateOfBirth.getText().toString();
-            edittext_BloodGroupName=BloodGroupName.getText().toString();
-            if(edittext_email.equals("") || edittext_name.equals("") || edittext_user.equals("")
-                    || edittext_password.equals("") || edittext_BloodGroupName.equals("")
-                    || dateofbirth.equals(""))
-                Toast.makeText(getApplicationContext(),"Fill the blank",Toast.LENGTH_SHORT).show();
-            else if(edittext_email.length()<=7)
-                password.setError("Please enter password at-least 8 digits");
-            else if(!(edittext_BloodGroupName.length() ==2))
-                BloodGroupName.setError("Two characters are allowed...");
-            else
-                genderRadioButton= findViewById(selectedId);
-                genderName=genderRadioButton.getText().toString();
-                if(checkBox.isChecked())
-                    registerBloodDonor(edittext_name,edittext_user,edittext_email,edittext_password,edittext_BloodGroupName,genderName,dateofbirth);
-                else
-                    registerNotBloodDonor(edittext_name,edittext_user,edittext_email,edittext_password,edittext_BloodGroupName,genderName,dateofbirth);
-        });
-
+        initViews();
+        radioGroup.setOnCheckedChangeListener(
+                (group, checkedId) -> {
+                    RadioButton radioButton = group.findViewById(checkedId);
+                });
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(checkBox.isChecked()){
+            if (checkBox.isChecked())
                 checkBox.setText("Yes");
-            }else {
+            if (!checkBox.isChecked())
                 checkBox.setText("No");
-            }
         });
-    }
 
-    //Only for User
-    private void registerNotBloodDonor(String edit_name,String edit_username,String edit_email,
-                                       String edit_password,String edittext_BloodGroupName,
-                                       String genderName,String dob)
-    {
-        progressDialog.setTitle("Please wait few minutes...");
-        progressDialog.show();
-        firebaseAuth
-                .createUserWithEmailAndPassword(edit_email,edit_password)
-                .addOnCompleteListener(task -> {
-                    if(task.isSuccessful())
-                    {
-                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                        assert firebaseUser != null;
-                        String UserId = firebaseUser.getUid();
-                        databaseReference = FirebaseDatabase.getInstance().getReference("OnlyUser").child(firebaseUser.getUid());
-                        HashMap<String, String> hashMap = new HashMap<>();
-                        hashMap.put("id", UserId);
-                        hashMap.put("fullname",edit_name);
-                        hashMap.put("username", edit_username);
-                        hashMap.put("email", edit_email);
-                        hashMap.put("gender",genderName);
-                        hashMap.put("dob",dob);
-                        hashMap.put("imageurl","default");
-                        hashMap.put("bloodgroup",edittext_BloodGroupName);
-
-                        databaseReference.setValue(hashMap).addOnCompleteListener(task1 ->
-                        {
-                            if(task1.isSuccessful()){
-                           firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task2 -> {
-                               progressDialog.dismiss();
-                               Toast.makeText(RegisterActivity.this, "Account successfully created and check you email for verification..", Toast.LENGTH_SHORT).show();
-                               startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                            }).addOnFailureListener(e -> {
-                                progressDialog.dismiss();
-                                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                            }
-                        }).addOnFailureListener(e -> {
-                            progressDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-                    }
-                }).addOnFailureListener(e -> {
-            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
-    }
-
-    //For Blood Donors
-    private void registerBloodDonor(String edit_name,String edit_username,String edit_email,
-                                    String edit_password,String edittext_BloodGroupName,
-                                    String genderName,String dob)
-    {
-        progressDialog.setTitle("Please wait few minutes...");
-        progressDialog.show();
-        firebaseAuth
-                .createUserWithEmailAndPassword(edit_email,edit_password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task)
-            {
-                if(task.isSuccessful())
-                {
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                    assert firebaseUser != null;
-                    String UserId = firebaseUser.getUid();
-                    databaseReference = FirebaseDatabase.getInstance().getReference("BloodDonors").child(firebaseUser.getUid());
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("id", UserId);
-                    hashMap.put("fullname",edit_name);
-                    hashMap.put("username", edit_username);
-                    hashMap.put("email", edit_email);
-                    hashMap.put("gender",genderName);
-                    hashMap.put("dob",dob);
-                    hashMap.put("imageurl","");
-                    hashMap.put("bloodgroup",edittext_BloodGroupName);
+            public void onClick(View v) {
+                String name = editText1.getText().toString();
+                String username = editText2.getText().toString();
+                String email = editText3.getText().toString();
+                String password = editText4.getText().toString();
+                String dob = editText5.getText().toString();
+                String bloodGroup = editText6.getText().toString();
+                String gender="";
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = radioGroup.findViewById(selectedId);
+                if(selectedId==-1)
+                    Toast.makeText(RegisterActivity.this, "please choose you gender", Toast.LENGTH_SHORT).show();
+                else
+                    gender=radioButton.getText().toString();
 
-                    databaseReference.setValue(hashMap).addOnCompleteListener(task1 ->
-                    {
-                        if(task1.isSuccessful()){
-                            firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task2 -> {
-                                progressDialog.dismiss();
-                                Toast.makeText(RegisterActivity.this, "Account successfully created and check you email for verification..", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                            }).addOnFailureListener(e -> {
-                                progressDialog.dismiss();
-                                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
-                        }
-                    }).addOnFailureListener(e -> {
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                if (name.equals("") || username.equals("") || email.equals("") || password.equals("") || dob.equals("")
+                        || bloodGroup.equals(""))
+                    Toast.makeText(RegisterActivity.this, "Please fill the blank", Toast.LENGTH_SHORT).show();
+                else if (!(bloodGroup.length() == 2))
+                    Toast.makeText(RegisterActivity.this, "Blood group only 2 character only...", Toast.LENGTH_SHORT).show();
+                else if (password.length() <= 7)
+                    Alerter.create(RegisterActivity.this)
+                            .setTitle("Alert")
+                            .setText("Password at least 8 digits")
+                            .setIcon(R.drawable.alerticon)
+                            .setBackgroundColorRes(R.color.white)
+                            .setDuration(2000).setOnClickListener(v1 -> {
+                    }).setOnShowListener(() -> {
+                    }).setOnHideListener(() -> {
                     });
-                }
+                else if (checkBox.isChecked())
+                    registerBloodDonor(name, username, email, password, dob, bloodGroup, gender);
+                else
+                    registerOnlyUser(name, username, email, password, dob, bloodGroup,gender);
             }
-        }).addOnFailureListener(e -> {
-            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
-    private void initView()
-    {
-        name=findViewById(R.id.edittext1);
-        email=findViewById(R.id.edittext3);
-        username=findViewById(R.id.edittext2);
-        submit_button=findViewById(R.id.create_button);
-        checkBox=findViewById(R.id.checkbox1);
-        password=findViewById(R.id.edittext4);
-        DateOfBirth=findViewById(R.id.dob);
-        BloodGroupName=findViewById(R.id.blood_group);
-        dobTextView=findViewById(R.id.dobtext);
+    //Initialize the all views
+    private void initViews() {
         progressDialog=new ProgressDialog(this);
-        radioGroup=findViewById(R.id.radioGroup);
+        progressDialog.setMessage("Please wait few moments....");
+        editText1 = findViewById(R.id.editText1);
+        editText2 = findViewById(R.id.editText2);
+        editText3 = findViewById(R.id.editText3);
+        editText4 = findViewById(R.id.editText4);
+        editText5 = findViewById(R.id.editText5);
+        editText6 = findViewById(R.id.editText6);
+        radioGroup = findViewById(R.id.radiogroup);
         firebaseAuth = FirebaseAuth.getInstance();
-        ArrayAdapter arrayAdapter=new ArrayAdapter(this, android.R.layout.simple_spinner_item,bloodGroupName);
+        checkBox = findViewById(R.id.checkbox);
+        btn1 = findViewById(R.id.button1);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        dobTextView.setVisibility(View.INVISIBLE);
+        radioGroup.clearCheck();
+    }
+
+    private void registerOnlyUser(String name, String username, String email, String password, String dob, String bloodGroup,String gender)
+    {
+        progressDialog.show();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                databaseReference=FirebaseDatabase.getInstance().getReference("OnlyUser").child(firebaseUser.getUid());
+                HashMap<String,String> hashMap=new HashMap<>();
+                hashMap.put("id",firebaseUser.getUid());
+                hashMap.put("fullname",name);
+                hashMap.put("username",username);
+                hashMap.put("email",email);
+                hashMap.put("dob",dob);
+                hashMap.put("gender",gender);
+                hashMap.put("bloodgroup",bloodGroup);
+
+                databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
+                    if(task1.isSuccessful())
+                    {
+                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task11 -> {
+                            if(task11.isSuccessful()) {
+                                progressDialog.dismiss();
+                                AllUser();
+                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            }else{
+                                progressDialog.dismiss();
+                                Toast.makeText(RegisterActivity.this, task11.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void registerBloodDonor(String name, String username, String email, String password, String dob, String bloodGroup,String gender)
+    {
+        progressDialog.show();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                databaseReference=FirebaseDatabase.getInstance().getReference("BloodDonor").child(firebaseUser.getUid());
+                HashMap<String,String> hashMap=new HashMap<>();
+                hashMap.put("id",firebaseUser.getUid());
+                hashMap.put("fullname",name);
+                hashMap.put("username",username);
+                hashMap.put("email",email);
+                hashMap.put("dob",dob);
+                hashMap.put("imageurl","default");
+                hashMap.put("gender",gender);
+                hashMap.put("bloodgroup",bloodGroup);
+
+                databaseReference.setValue(hashMap).addOnCompleteListener(task12 -> {
+                    if(task12.isSuccessful())
+                    {
+                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(task1 -> {
+                            if(task1.isSuccessful()) {
+                                progressDialog.dismiss();
+                                AllUser();
+                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            }else{
+                                progressDialog.dismiss();
+                                Toast.makeText(RegisterActivity.this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, task12.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void AllUser()
+    {
+        String name=editText1.getText().toString();
+        String email=editText3.getText().toString();
+        String bloodGroup=editText6.getText().toString();
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        databaseReference=FirebaseDatabase.getInstance().getReference("AllUser").child(firebaseUser.getUid());
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("fullname",name);
+        hashMap.put("email",email);
+        hashMap.put("bloodgroup",bloodGroup);
+        hashMap.put("imageurl","default");
+        databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if(task.isSuccessful()){
+                    Toast.makeText(RegisterActivity.this, "Information Added..", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
