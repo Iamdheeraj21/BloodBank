@@ -2,7 +2,6 @@ package com.example.bloodbank;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         return true;
                     case R.id.bottom_blood_donors:
-                        startActivity(new Intent(getApplicationContext(),BloodDonorsActivity.class));
+                        startActivity(new Intent(getApplicationContext(), FindBloodDonorsActivity.class));
                         return true;
                     case R.id.bottom_settings:
                         startActivity(new Intent(getApplicationContext(),SettingsActivity.class));

@@ -49,8 +49,6 @@ public class Forget_Password extends AppCompatActivity
                 }).setNegativeButton("No",null);
             alertDialog.show();
         });
-
-
     }
 
     private void forgetPasswordOfId(String email)

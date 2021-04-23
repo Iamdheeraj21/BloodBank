@@ -12,12 +12,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -150,12 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void registerBloodDonor(String name, String username, String email, String password, String dob, String bloodGroup,String gender)
@@ -195,12 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
     private void AllUser()
     {
@@ -215,21 +201,13 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("email",email);
         hashMap.put("bloodgroup",bloodGroup);
         hashMap.put("imageurl","default");
-        databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task)
-            {
-                if(task.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this, "Information Added..", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                }
+        
+        databaseReference.setValue(hashMap).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                Toast.makeText(RegisterActivity.this, "Information Added..", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
     }
 }

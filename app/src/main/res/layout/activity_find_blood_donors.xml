@@ -4,16 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BloodDonorsActivity">
+    android:background="#F31616"
+    tools:context=".FindBloodDonorsActivity">
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/search_blood_donor"
         android:hint="Enter the blood donor name!"
         tools:ignore="HardcodedText"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:autofillHints="no"
         android:inputType="text"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/search_donor"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="Search"
+        tools:ignore="HardcodedText" />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
