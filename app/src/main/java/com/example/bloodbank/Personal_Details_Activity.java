@@ -56,7 +56,7 @@ public class Personal_Details_Activity extends AppCompatActivity
                         .setTitle("Alert")
                         .setText(error.getMessage())
                         .setIcon(R.drawable.alerticon)
-                        .setBackgroundColorRes(R.color.white)
+                        .setBackgroundColorRes(R.color.black)
                         .setDuration(2000)
                         .setOnClickListener(v -> {
                         }).setOnShowListener(() -> {

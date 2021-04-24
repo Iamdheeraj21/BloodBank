@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D82626"
+    tools:context=".Send_Blood_Request">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UselessLeaf">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Request Information"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:id="@+id/textview6"
+                android:layout_marginTop="15dp"
+               android:layout_marginStart="30dp"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textview6"
+                android:layout_marginTop="50dp"
+                android:hint="Enter your name!"
+                android:id="@+id/editText7"
+                tools:ignore="HardcodedText"
+                android:textStyle="bold"
+                android:layout_marginStart="30dp"
+                android:autofillHints="no"
+                android:inputType="text" />
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editText7"
+                android:layout_marginTop="30dp"
+                android:hint="Phone Number!"
+                tools:ignore="HardcodedText"
+                android:id="@+id/editText8"
+                android:textStyle="bold"
+                android:layout_marginStart="30dp"
+                android:autofillHints="no"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blood Group"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:textStyle="bold"
+                android:id="@+id/textview4"
+                tools:ignore="HardcodedText"
+                android:layout_below="@id/editText8"/>
+
+            <Spinner
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/blood_group_spinner"
+                android:layout_below="@id/editText8"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="140dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit Request"
+                android:id="@+id/submit_request"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="80dp"
+                tools:ignore="HardcodedText"
+                android:layout_below="@id/blood_group_spinner"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

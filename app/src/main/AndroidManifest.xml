@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bloodbank">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,18 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodBank"
         tools:ignore="AllowBackup">
-        <activity android:name=".Blood_Donor_profile"
-            android:parentActivityName=".FindBloodDonorsActivity"/>
+        <activity android:name=".Send_Blood_Request"
+            android:parentActivityName=".MainActivity"
+            android:label="Blood Request"/>
+        <activity
+            android:name=".Blood_Donor_profile"
+            android:parentActivityName=".FindBloodDonorsActivity" />
         <activity
             android:name=".RegisterActivity"
             android:label="Register Activity"
             android:parentActivityName=".LoginActivity" />
-        <activity android:name=".FindBloodDonorsActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".About_Us"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".FindBloodDonorsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".About_Us"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Forget_Password"
             android:label="Forget Password Activity"
