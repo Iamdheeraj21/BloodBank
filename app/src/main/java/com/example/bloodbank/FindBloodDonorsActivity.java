@@ -47,23 +47,6 @@ public class FindBloodDonorsActivity extends AppCompatActivity
         editText=findViewById(R.id.search_blood_donor);
         databaseReference= FirebaseDatabase.getInstance().getReference().child("AllUser");
 
-        /*editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count){
-                if(editText.getText().toString().equals(""))
-                    Toast.makeText(FindBloodDonorsActivity.this, "Please enter name!", Toast.LENGTH_SHORT).show();
-                else
-                    searchBloodDonor(string=s.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });*/
-
         button.setOnClickListener(v -> {
             string=editText.getText().toString();
             if(editText.getText().toString().equals(""))

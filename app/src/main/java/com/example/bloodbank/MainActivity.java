@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         initViews();
         getBloodUnitData();
+        getTheUserInformation();
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int item_Id=item.getItemId();
             switch (item_Id) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity
                     startActivity(new Intent(getApplicationContext(), FindBloodDonorsActivity.class));
                     return true;
                 case R.id.bottom_settings:
-                    startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                    startActivity(new Intent(getApplicationContext(),Personal_Details_Activity.class));
                     return true;
                 default:
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int item_Id=item.getItemId();
         if(item_Id == R.id.personal_details){
-            startActivity(new Intent(MainActivity.this,Personal_Details_Activity.class));
+            startActivity(new Intent(MainActivity.this,BloodRequestsActivity.class));
             return true;
         }else if(item_Id ==R.id.about_us){
             startActivity(new Intent(MainActivity.this,About_Us.class));
@@ -151,6 +152,25 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void getTheUserInformation(){
+        String currentUSerId=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("AllUser");
+        databaseReference.child(currentUSerId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String imageUrl=snapshot.child("imageurl").getValue().toString();
+                    if(imageUrl.equals("default")){
+                        Toast.makeText(MainActivity.this, "Please upload your Passport size photo!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

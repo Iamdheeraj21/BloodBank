@@ -76,6 +76,17 @@
     android:backgroundTint="@color/black"
     android:layout_marginTop="80dp"
     android:layout_centerHorizontal="true"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/forget_password"
+        android:backgroundTint="@color/black"
+        android:layout_marginTop="80dp"
+        android:id="@+id/progressbar_signIn"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     package="com.example.bloodbank">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,9 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodBank"
         tools:ignore="AllowBackup">
-        <activity android:name=".Send_Blood_Request"
-            android:parentActivityName=".MainActivity"
-            android:label="Blood Request"/>
+        <activity android:name=".Send_Mail_To_Donor"
+            android:parentActivityName=".Blood_Donor_profile"
+            android:label="Send Mail To Donor"/>
+        <activity
+            android:name=".BloodRequestsActivity"
+            android:label="My Requests"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Send_Blood_Request"
+            android:label="Blood Request"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Blood_Donor_profile"
             android:parentActivityName=".FindBloodDonorsActivity" />
@@ -25,9 +33,6 @@
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".FindBloodDonorsActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".About_Us"

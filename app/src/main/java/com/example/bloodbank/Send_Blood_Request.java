@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tapadoo.alerter.Alerter;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,6 +38,7 @@ public class Send_Blood_Request extends AppCompatActivity
     EditText editText1,editText2;
     CircleImageView circleImageView;
     Button button;
+    Random random;
     MediaPlayer mediaPlayer;
     String[] BloodGroup={"Select One","A+","A-","B+","B-","O+","O-","AB+","AB-"};
     LayoutInflater layoutInflater;
@@ -94,15 +96,17 @@ public class Send_Blood_Request extends AppCompatActivity
     private void submitBloodRequest(String name, String phoneNumber, String bloodGroupName)
     {
         progressDialog.show();
+        int recaptcha_num=random.nextInt(2500)+5000;
+        String application_number=String.valueOf(recaptcha_num);
         HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("applicationo",application_number);
         hashMap.put("fullname",name);
         hashMap.put("phonenumber",phoneNumber);
         hashMap.put("bloodgroupname",bloodGroupName);
+        hashMap.put("status","Active");
         DatabaseReference databaseReference1 ;
         databaseReference1=FirebaseDatabase.getInstance().getReference().child("BloodRequest");
-        String RequestKey=databaseReference1.push().getKey();
-        assert RequestKey != null;
-        databaseReference1.child(current_user).child(RequestKey).setValue(hashMap).addOnCompleteListener(task ->
+        databaseReference1.child(current_user).setValue(hashMap).addOnCompleteListener(task ->
         {
             if(task.isSuccessful()){
                 mediaPlayer.start();
@@ -158,6 +162,8 @@ public class Send_Blood_Request extends AppCompatActivity
         editText1=findViewById(R.id.editText7);
         editText2=findViewById(R.id.editText8);
         button=findViewById(R.id.submit_request);
+
+        random=new Random();
         current_user= FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference= FirebaseDatabase.getInstance().getReference().child("AllUser");
     }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#C82323"
+    android:layout_height="match_parent"
+    tools:context=".Send_Mail_To_Donor">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send Mail"
+                android:layout_marginTop="20dp"
+                android:textSize="25sp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:id="@+id/textview21"
+                tools:ignore="HardcodedText" />
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_marginStart="25dp"
+            android:inputType="text"
+            android:layout_below="@id/textview21"
+            android:layout_marginTop="15dp"
+            android:id="@+id/email"
+            android:autofillHints="no"
+            tools:ignore="HardcodedText,TextFields" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Subject"
+            android:layout_marginStart="25dp"
+            android:inputType="text"
+            android:id="@+id/email_subject"
+            android:autofillHints="no"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/email"
+            tools:ignore="HardcodedText,TextFields" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:hint="Body"
+            android:layout_marginStart="25dp"
+            android:inputType="text"
+            android:layout_below="@id/email_subject"
+            android:id="@+id/email_body"
+            android:autofillHints="no"
+            android:layout_marginTop="15dp"
+            tools:ignore="HardcodedText,TextFields" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/email_body"
+                android:text="Send"
+                android:id="@+id/send_email_btn"
+                android:layout_marginTop="25dp"
+                android:textAllCaps="false"
+                android:layout_centerHorizontal="true"
+                tools:ignore="HardcodedText" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

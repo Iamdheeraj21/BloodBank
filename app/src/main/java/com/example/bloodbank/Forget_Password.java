@@ -1,11 +1,12 @@
 package com.example.bloodbank;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,8 @@ public class Forget_Password extends AppCompatActivity
     TextView textView;
     FirebaseAuth firebaseAuth;
     AlertDialog.Builder alertDialog;
-    ProgressDialog progressDialog;
     Random random;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,27 +43,27 @@ public class Forget_Password extends AppCompatActivity
             else if (!recaptcha_number.equals(recaptcha_textview))
                 Toast.makeText(Forget_Password.this, "Please enter correct recaptcha..", Toast.LENGTH_SHORT).show();
             else
-                alertDialog.setPositiveButton("Yes", (dialog, which) -> {
-                    progressDialog.setMessage("Please wait few minutes...");
-                    progressDialog.show();
                     forgetPasswordOfId(email);
-                }).setNegativeButton("No",null);
-            alertDialog.show();
         });
     }
 
     private void forgetPasswordOfId(String email)
     {
+        progressBar.setVisibility(View.VISIBLE);
+        btn1.setVisibility(View.INVISIBLE);
         firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                progressDialog.dismiss();
                 Toast.makeText(Forget_Password.this,"Please check your email!",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(Forget_Password.this,LoginActivity.class));
             }else {
-                progressDialog.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
+                btn1.setVisibility(View.VISIBLE);
                 String error=task.getException().getMessage();
                 Toast.makeText(Forget_Password.this,error,Toast.LENGTH_SHORT).show();
             }
+        }).addOnFailureListener(e -> {
+            progressBar.setVisibility(View.INVISIBLE);
+            btn1.setVisibility(View.VISIBLE);
         });
     }
 
@@ -72,6 +73,7 @@ public class Forget_Password extends AppCompatActivity
         editText2=findViewById(R.id.random_recaptcha);
         btn1=findViewById(R.id.send_forget_password);
         textView=findViewById(R.id.random_number);
+        progressBar=findViewById(R.id.progressbar_Forget);
         firebaseAuth= FirebaseAuth.getInstance();
         random=new Random();
         int recaptcha_num=random.nextInt(2500)+5000;

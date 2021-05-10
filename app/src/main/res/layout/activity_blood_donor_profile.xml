@@ -60,5 +60,27 @@
         android:layout_marginTop="20dp"
         tools:ignore="HardcodedText"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/call_btn"
+        android:layout_below="@+id/textview5"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="100dp"
+        android:src="@drawable/ic_baseline_local_phone_24"
+        tools:ignore="ContentDescription" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview5"
+        android:id="@+id/email_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/email"
+        tools:ignore="ContentDescription,RelativeOverlap" />
+
+
 
 </RelativeLayout>

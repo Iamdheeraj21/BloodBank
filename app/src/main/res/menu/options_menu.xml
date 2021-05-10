@@ -2,10 +2,10 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Personal Details"
+    <item android:title="My Requests"
         android:id="@+id/personal_details"
         tools:ignore="HardcodedText" />
-    <item android:title="About US"
+    <item android:title="About Us"
         android:id="@+id/about_us"
         tools:ignore="HardcodedText"/>
     <item android:title="Log Out"

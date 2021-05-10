@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +28,9 @@ public class LoginActivity extends AppCompatActivity
     Button btn1,btn2,btn3;
     TextView recaptcha;
     FirebaseAuth firebaseAuth;
-    ProgressDialog progressDialog;
     EditText email,password,editText_recaptcha;
     Random random;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,27 +68,28 @@ public class LoginActivity extends AppCompatActivity
 
     private void loginProcess(String email_edittext, String password_edittext)
     {
+        progressBar.setVisibility(View.VISIBLE);
+        btn1.setVisibility(View.INVISIBLE);
         firebaseAuth.signInWithEmailAndPassword(email_edittext,password_edittext)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
-                        if(task.isSuccessful()){
-                            if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                            progressDialog.dismiss();
-                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);}
-                            else {
-                                progressDialog.dismiss();
-                                Toast.makeText(LoginActivity.this,"Please verify emailAddress",Toast.LENGTH_SHORT).show();
-                            }
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        progressBar.setVisibility(View.INVISIBLE);
+                        btn1.setVisibility(View.VISIBLE);
+                        if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);}
+                        else {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            btn1.setVisibility(View.VISIBLE);
+                            Toast.makeText(LoginActivity.this,"Please verify emailAddress",Toast.LENGTH_SHORT).show();
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull  Exception e) {
-                progressDialog.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
+                btn1.setVisibility(View.VISIBLE);
                 Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
@@ -102,14 +105,11 @@ public class LoginActivity extends AppCompatActivity
         password=findViewById(R.id.Login_edittext2);
         editText_recaptcha=findViewById(R.id.edittext_recaptcha);
         firebaseAuth= FirebaseAuth.getInstance();
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Please wait few moments...");
+        progressBar=findViewById(R.id.progressbar_signIn);
         random=new Random();
         int recaptcha_num=random.nextInt(2500)+5000;
         String recaptcha_number=String.valueOf(recaptcha_num);
         recaptcha.setText(recaptcha_number);
-
-
     }
 
     @Override

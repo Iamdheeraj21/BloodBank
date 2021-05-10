@@ -60,13 +60,26 @@
         android:layout_marginTop="10dp"
         tools:ignore="HardcodedText" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="no"
+        android:inputType="text"
+        android:id="@+id/editText7"
+        android:layout_below="@id/editText4"
+        android:hint="Mobile Number"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="HardcodedText" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:text="Date of Birth"
         android:textStyle="bold"
-        android:layout_below="@id/editText4"
+        android:layout_below="@id/editText7"
         android:layout_marginTop="20dp"
         android:layout_marginStart="40dp"
         tools:ignore="HardcodedText" />
@@ -78,7 +91,7 @@
         android:inputType="text"
         android:id="@+id/editText5"
         android:hint="dd/mm/yy"
-        android:layout_below="@id/editText4"
+        android:layout_below="@id/editText7"
         android:layout_marginStart="200dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
@@ -169,9 +182,16 @@
         android:text="Create Account"
         android:id="@+id/button1"
         android:layout_below="@id/checkbox"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         tools:ignore="HardcodedText" />
-
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkbox"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/pogressBarSignUp"/>
 
 </RelativeLayout>

@@ -2,14 +2,21 @@ package com.example.bloodbank;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +31,7 @@ public class Blood_Donor_profile extends AppCompatActivity
     DatabaseReference databaseReference;
     TextView textView_name,textView_email,textView_bloodGroup;
     CircleImageView circleImageView;
+    FloatingActionButton call_btn,email_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +40,61 @@ public class Blood_Donor_profile extends AppCompatActivity
         blood_donor_id=getIntent().getExtras().get("blood_donor_id").toString();
         getBloodDonorDetails();
 
+        call_btn.setOnClickListener(v-> {
+            callTheBloodDonor();
+        });
+        email_btn.setOnClickListener(v->{
+            emailTheBloodDonor();
+        });
     }
 
+    private void callTheBloodDonor()
+    {
+        databaseReference.child(blood_donor_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String phoneNumber=snapshot.child("mobilenumber").getValue().toString();
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                            Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                        //Creating intents for making a call
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        callIntent.setData(Uri.parse("tel:"+phoneNumber.trim()));
+                        getApplicationContext().startActivity(callIntent);
+
+                    }else{
+                        Toast.makeText(getApplicationContext(), "You don't assign permission.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+                Toast.makeText(Blood_Donor_profile.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void emailTheBloodDonor()
+    {
+        databaseReference.child(blood_donor_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String email=snapshot.child("email").getValue().toString();
+                    Intent intent=new Intent(Blood_Donor_profile.this,Send_Mail_To_Donor.class);
+                    intent.putExtra("email",email);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(Blood_Donor_profile.this, "Email is not exists...", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull  DatabaseError error) {
+                Toast.makeText(Blood_Donor_profile.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     //Get the Blood Donor Details
     private void getBloodDonorDetails()
     {
@@ -74,5 +135,7 @@ public class Blood_Donor_profile extends AppCompatActivity
         textView_bloodGroup=findViewById(R.id.textview5);
         circleImageView=findViewById(R.id.circle_Image_view1);
         databaseReference= FirebaseDatabase.getInstance().getReference().child("AllUser");
+        call_btn=findViewById(R.id.call_btn);
+        email_btn=findViewById(R.id.email_btn);
     }
 }
