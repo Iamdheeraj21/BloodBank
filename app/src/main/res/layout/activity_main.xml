@@ -10,105 +10,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blood Bank"
+        android:text="Notification"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:textColor="@color/black"
-        android:id="@+id/blood_bank_title"
-        tools:ignore="HardcodedText"
-        android:textStyle="bold"
-        android:textSize="30sp"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginStart="8dp"
+        android:id="@+id/notification_heading"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A+"
-        android:textSize="20sp"
-        android:layout_below="@id/blood_bank_title"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="150dp"
-        android:id="@+id/bloodGroup_AP"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A-"
-        android:id="@+id/bloodGroup_AN"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:textStyle="bold"
-        android:layout_below="@id/bloodGroup_AP"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="B+"
-        android:id="@+id/bloodGroup_BP"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/bloodGroup_AN"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="B-"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:id="@+id/bloodGroup_BN"
-        android:layout_below="@id/bloodGroup_BP"
-        tools:ignore="HardcodedText" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="10dp"
+        android:layout_below="@id/notification_heading"
+        android:layout_above="@id/bottomNavigation"
+        android:id="@+id/cardView_Notification">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="O+"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/bloodGroup_OP"
-        android:layout_below="@id/bloodGroup_BN"
-        tools:ignore="HardcodedText" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/red"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/notification_recyclerView"/>
+        </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="O-"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:id="@+id/bloodGroup_ON"
-        android:layout_below="@id/bloodGroup_OP"
-        tools:ignore="HardcodedText" />
+    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AB+"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:id="@+id/bloodGroup_ABP"
-        android:layout_below="@id/bloodGroup_ON"
-        tools:ignore="HardcodedText" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AB-"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="150dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/bloodGroup_ABN"
-        android:layout_below="@id/bloodGroup_ABP"
-        tools:ignore="HardcodedText" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,15 +46,19 @@
         app:menu="@menu/bottom_menu"
         android:background="#F30F0F"/>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Blood Request"
         android:id="@+id/blood_request"
         android:layout_above="@id/bottomNavigation"
+        android:backgroundTint="@color/red"
         android:layout_marginBottom="50dp"
-        android:layout_marginEnd="10dp"
-        android:layout_alignParentEnd="true"/>
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_baseline_add_24"
+        android:layout_alignParentEnd="true"
+        tools:ignore="ContentDescription" />
+
 
 
 </RelativeLayout>

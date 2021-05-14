@@ -3,6 +3,7 @@ package com.example.bloodbank;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -17,6 +18,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tapadoo.alerter.Alerter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -34,17 +41,18 @@ public class Send_Blood_Request extends AppCompatActivity
 {
     Spinner spinner;
     Toast toast;
-    TextView toastName;
+    TextView toastName,bandepartmentuid;
     EditText editText1,editText2;
     CircleImageView circleImageView;
     Button button;
     Random random;
+    String bloodBankUid;
     MediaPlayer mediaPlayer;
     String[] BloodGroup={"Select One","A+","A-","B+","B-","O+","O-","AB+","AB-"};
     LayoutInflater layoutInflater;
     String bloodGroupName="";
     ProgressDialog progressDialog;
-    DatabaseReference databaseReference;
+    DatabaseReference infoRef;
     String current_user="";
     ArrayAdapter<String> arrayAdapter;
     @Override
@@ -96,36 +104,55 @@ public class Send_Blood_Request extends AppCompatActivity
     private void submitBloodRequest(String name, String phoneNumber, String bloodGroupName)
     {
         progressDialog.show();
+        bloodBankUid=bandepartmentuid.getText().toString();
         int recaptcha_num=random.nextInt(2500)+5000;
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String dateData=formatter.format(date);
         String application_number=String.valueOf(recaptcha_num);
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("applicationo",application_number);
         hashMap.put("fullname",name);
         hashMap.put("phonenumber",phoneNumber);
         hashMap.put("bloodgroupname",bloodGroupName);
+        hashMap.put("date",dateData);
         hashMap.put("status","Active");
-        DatabaseReference databaseReference1 ;
+        DatabaseReference databaseReference1;
         databaseReference1=FirebaseDatabase.getInstance().getReference().child("BloodRequest");
-        databaseReference1.child(current_user).setValue(hashMap).addOnCompleteListener(task ->
+        databaseReference1.child(bloodBankUid).child(current_user).setValue(hashMap).addOnCompleteListener(task ->
         {
             if(task.isSuccessful()){
-                mediaPlayer.start();
-                progressDialog.dismiss();
-                startActivity(new Intent(Send_Blood_Request.this,MainActivity.class));
-                toast.show();
+                databaseReference1.child(current_user).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if(task.isSuccessful()){
+                            mediaPlayer.start();
+                            progressDialog.dismiss();
+                            startActivity(new Intent(Send_Blood_Request.this,MainActivity.class));
+                            toast.show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Send_Blood_Request.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }else {
                 progressDialog.dismiss();
                 Toast.makeText(this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> {
             progressDialog.dismiss();
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Send_Blood_Request.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
     private void getInformation()
     {
-        databaseReference.child(current_user).addValueEventListener(new ValueEventListener() {
+        infoRef.child(current_user).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
@@ -151,7 +178,6 @@ public class Send_Blood_Request extends AppCompatActivity
         View customView=layoutInflater.inflate(R.layout.customtoast, (ViewGroup) findViewById(R.id.custom_toast));
         //Set the custom progress dialog box
         progressDialog=new ProgressDialog(this);
-
         // Set the Custom Toast View
         circleImageView=customView.findViewById(R.id.tick);
         toastName=customView.findViewById(R.id.toast_textview);
@@ -162,9 +188,32 @@ public class Send_Blood_Request extends AppCompatActivity
         editText1=findViewById(R.id.editText7);
         editText2=findViewById(R.id.editText8);
         button=findViewById(R.id.submit_request);
-
+        bandepartmentuid=findViewById(R.id.bandeparmentuid);
         random=new Random();
         current_user= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("AllUser");
+        infoRef= FirebaseDatabase.getInstance().getReference().child("AllUser");
+        getAndSetUid();
     }
+
+    private void getAndSetUid()
+    {
+        DatabaseReference databaseReference2;
+        databaseReference2=FirebaseDatabase.getInstance().getReference().child("BankDepartmentUid");
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    bloodBankUid=snapshot.child("uid").getValue().toString();
+                    bandepartmentuid.setText(bloodBankUid);
+
+                }else Toast.makeText(Send_Blood_Request.this, "Not available", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Send_Blood_Request.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/notification_cardView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_title"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:layout_marginStart="8dp"
+                android:id="@+id/notification_title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_date"
+                android:layout_alignParentEnd="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/notification_date"
+                tools:ignore="RelativeOverlap" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_description"
+                android:layout_below="@id/notification_title"
+                android:layout_marginStart="8dp"
+                android:id="@+id/notification_desc"
+                android:layout_marginTop="8dp"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit By:-"
+                android:textStyle="bold"
+                android:id="@+id/submit_by"
+                android:layout_below="@id/notification_desc"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="80dp"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

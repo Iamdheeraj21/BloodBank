@@ -1,8 +1,5 @@
 package com.example.bloodbank;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,11 +7,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,12 +28,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import Notifications.Notification;
+import Notifications.NotificationAdapter;
+
 public class MainActivity extends AppCompatActivity
 {
     BottomNavigationView bottomNavigationView;
-    DatabaseReference databaseReference;
-    TextView BG1,BG2,BG3,BG4,BG5,BG6,BG7,BG8;
-    Button send_request;
+    DatabaseReference databaseReference,notificationRef;
+    RecyclerView notification_recyclerView;
+    FloatingActionButton send_request;
+    NotificationAdapter adapter;
+    CardView cardView_notification;
+    String CurrentUSerId;
+    TextView textView_Notification;
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,7 +48,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        getBloodUnitData();
         getTheUserInformation();
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int item_Id=item.getItemId();
@@ -62,26 +74,21 @@ public class MainActivity extends AppCompatActivity
             alertDialogBox.setMessage("1. If your information is wrong and fake then take the action against you by the Police!\n" +
                     "2. So Fill the Correct information!");
             alertDialogBox.setPositiveButton("Okay", (dialog, which) ->
-            {
-                startActivity(new Intent(MainActivity.this,Send_Blood_Request.class));
-            }).setNegativeButton("Cancel",null);
+                    startActivity(new Intent(MainActivity.this,Send_Blood_Request.class))).setNegativeButton("Cancel",null);
             alertDialogBox.show();
         });
     }
 
     private void initViews()
     {
-        BG1=findViewById(R.id.bloodGroup_AP);
-        BG2=findViewById(R.id.bloodGroup_AN);
-        BG3=findViewById(R.id.bloodGroup_BP);
-        BG4=findViewById(R.id.bloodGroup_BN);
-        BG5=findViewById(R.id.bloodGroup_OP);
-        BG6=findViewById(R.id.bloodGroup_ON);
-        BG7=findViewById(R.id.bloodGroup_ABP);
-        BG8=findViewById(R.id.bloodGroup_ABN);
         send_request=findViewById(R.id.blood_request);
+        notification_recyclerView=findViewById(R.id.notification_recyclerView);
+        notification_recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         bottomNavigationView=findViewById(R.id.bottomNavigation);
         databaseReference= FirebaseDatabase.getInstance().getReference().child("BloodGroupUnit");
+        notificationRef=FirebaseDatabase.getInstance().getReference().child("BankNotification");
+        textView_Notification=findViewById(R.id.notification_heading);
+        cardView_notification=findViewById(R.id.cardView_Notification);
     }
 
     @Override
@@ -94,6 +101,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int item_Id=item.getItemId();
         if(item_Id == R.id.personal_details){
+            Intent intent=new Intent(MainActivity.this,BloodRequestsActivity.class);
+            CurrentUSerId=FirebaseAuth.getInstance().getCurrentUser().getUid();
+            intent.putExtra("uid",CurrentUSerId);
             startActivity(new Intent(MainActivity.this,BloodRequestsActivity.class));
             return true;
         }else if(item_Id ==R.id.about_us){
@@ -122,39 +132,7 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
-    private void getBloodUnitData(){
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                if(snapshot.exists()){
-                    String AP=snapshot.child("A+").getValue().toString();
-                    String AN=snapshot.child("A-").getValue().toString();
-                    String BP=snapshot.child("B+").getValue().toString();
-                    String BN=snapshot.child("B-").getValue().toString();
-                    String OP=snapshot.child("O+").getValue().toString();
-                    String ON=snapshot.child("O-").getValue().toString();
-                    String ABP=snapshot.child("AB+").getValue().toString();
-                    String ABN=snapshot.child("AB-").getValue().toString();
 
-                    BG1.setText("A+ :"+AP);
-                    BG2.setText("A- :"+AN);
-                    BG3.setText("B+ :"+BP);
-                    BG4.setText("B- :"+BN);
-                    BG5.setText("O+ :"+OP);
-                    BG6.setText("O- :"+ON);
-                    BG7.setText("AB+ :"+ABP);
-                    BG8.setText("AB- :"+ABN);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
     private void getTheUserInformation(){
         String currentUSerId=FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("AllUser");
@@ -173,5 +151,21 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void getAllNotifications()
+    {
+        FirebaseRecyclerOptions<Notification> options=new FirebaseRecyclerOptions.Builder<Notification>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("BloodBankDepartmentNotification"),Notification.class)
+                .build();
+        adapter=new NotificationAdapter(options);
+        notification_recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getAllNotifications();
+        adapter.startListening();
     }
 }
