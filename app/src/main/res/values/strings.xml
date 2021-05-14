@@ -3,4 +3,6 @@
     <string name="notification_title">Notification Title</string>
     <string name="notification_date">Date : dd/mm/yy</string>
     <string name="notification_description">This id description of the notification and this i hope this is helpful for you!.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

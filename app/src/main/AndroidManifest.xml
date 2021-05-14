@@ -32,9 +32,6 @@
             android:label="Register Activity"
             android:parentActivityName=".LoginActivity" />
         <activity
-            android:name=".FindBloodDonorsActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".About_Us"
             android:parentActivityName=".MainActivity" />
         <activity
@@ -44,9 +41,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="Login Activity" />
-        <activity
-            android:name=".Personal_Details_Activity"
-            android:label="Details Activity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>

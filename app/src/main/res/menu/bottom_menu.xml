@@ -9,9 +9,8 @@
         android:id="@+id/bottom_blood_donors"
         android:icon="@drawable/blood_donor"
         tools:ignore="HardcodedText" />
-    <item android:title="Setting"
-        android:id="@+id/bottom_settings"
-        android:icon="@drawable/settings"
+    <item android:title="Profile"
+        android:id="@+id/bottom_profile"
+        android:icon="@drawable/person"
         tools:ignore="HardcodedText" />
-
 </menu>

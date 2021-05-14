@@ -7,36 +7,11 @@
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notification"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginStart="8dp"
-        android:id="@+id/notification_heading"/>
-
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="10dp"
-        android:layout_below="@id/notification_heading"
         android:layout_above="@id/bottomNavigation"
-        android:id="@+id/cardView_Notification">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@color/red"
-            android:layout_height="match_parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/notification_recyclerView"/>
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
+        android:id="@+id/fragment_container"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -44,21 +19,6 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/bottomNavigation"
         app:menu="@menu/bottom_menu"
-        android:background="#F30F0F"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Send Blood Request"
-        android:id="@+id/blood_request"
-        android:layout_above="@id/bottomNavigation"
-        android:backgroundTint="@color/red"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="15dp"
-        android:src="@drawable/ic_baseline_add_24"
-        android:layout_alignParentEnd="true"
-        tools:ignore="ContentDescription" />
-
-
+        android:background="@drawable/navigation_view"/>
 
 </RelativeLayout>
