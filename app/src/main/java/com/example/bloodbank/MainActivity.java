@@ -18,7 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.unknowncoder.bloodbank.R;
 public class MainActivity extends AppCompatActivity
 {
     BottomNavigationView bottomNavigationView;

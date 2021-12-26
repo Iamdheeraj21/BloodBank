@@ -41,7 +41,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
-
+import com.unknowncoder.bloodbank.R;
 public class ProfileFragment extends Fragment {
     TextView textView_email,textView_name,textView_gender,textView_number,textView_bloodgroup,textView_dob;
     CircleImageView circleImageView;
@@ -199,8 +199,7 @@ public class ProfileFragment extends Fragment {
                     databaseReference.updateChildren(map);
 
                     progressDialog.dismiss();
-                }
-                else{
+                }else{
                     Toast.makeText(getContext(),"Failed",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }

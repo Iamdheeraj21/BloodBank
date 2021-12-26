@@ -8,7 +8,7 @@ import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.unknowncoder.bloodbank.R;
 public class StartActivity extends AppCompatActivity {
     Handler handler;
     FirebaseUser firebaseUser;

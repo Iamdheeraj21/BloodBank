@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
+import com.unknowncoder.bloodbank.R;
 public class Send_Blood_Request extends AppCompatActivity
 {
     Spinner spinner;

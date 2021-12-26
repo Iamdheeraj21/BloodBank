@@ -1,7 +1,6 @@
 package com.example.bloodbank;
 
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,9 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import Adapter.BloodRequest;
-import Adapter.BloodRequestAdapter;
-
+import com.example.bloodbank.Adapter.BloodRequest;
+import com.example.bloodbank.Adapter.BloodRequestAdapter;
+import com.unknowncoder.bloodbank.R;
 public class BloodRequestsActivity extends AppCompatActivity
 {
     RecyclerView recyclerView;

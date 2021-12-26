@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tapadoo.alerter.Alerter;
 
 import java.util.HashMap;
-
+import com.unknowncoder.bloodbank.R;
 public class RegisterActivity extends AppCompatActivity {
     EditText editText1, editText2, editText3, editText4, editText5, editText6,editText7;
     Button btn1;

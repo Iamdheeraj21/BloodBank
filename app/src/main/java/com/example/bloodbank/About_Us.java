@@ -3,6 +3,7 @@ package com.example.bloodbank;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import com.unknowncoder.bloodbank.R;
 
 public class About_Us extends AppCompatActivity {
 

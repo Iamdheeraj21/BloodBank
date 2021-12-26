@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import com.tapadoo.alerter.Alerter;
-
+import com.unknowncoder.bloodbank.R;
 public class Send_Mail_To_Donor extends AppCompatActivity {
     EditText editText1,editText2,editText3;
     Button send_email_btn;

@@ -1,8 +1,7 @@
-package Adapter;
+package com.example.bloodbank.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bloodbank.R;
+
+import com.unknowncoder.bloodbank.R;
 
 import java.util.List;
 

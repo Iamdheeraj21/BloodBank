@@ -24,9 +24,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import Adapter.BloodDonor;
+import com.example.bloodbank.Adapter.BloodDonor;
 import de.hdodenhof.circleimageview.CircleImageView;
-
+import com.unknowncoder.bloodbank.R;
 public class SearchFragment extends Fragment {
     EditText editText;
     RecyclerView recyclerView;

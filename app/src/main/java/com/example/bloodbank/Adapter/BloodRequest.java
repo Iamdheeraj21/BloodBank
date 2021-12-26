@@ -1,4 +1,4 @@
-package Adapter;
+package com.example.bloodbank.Adapter;
 
 public class BloodRequest
 {
