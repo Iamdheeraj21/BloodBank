@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
                 if(snapshot.exists()){
                     String imageUrl=snapshot.child("imageurl").getValue().toString();
                     if(imageUrl.equals("default")){
-                        Toast.makeText(getContext(), "Please upload your Passport size photo!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please upload your Passport size photo!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
