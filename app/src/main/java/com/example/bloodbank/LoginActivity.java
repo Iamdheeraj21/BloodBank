@@ -2,6 +2,7 @@ package com.example.bloodbank;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.unknowncoder.bloodbank.R;
 
 import java.util.Random;
@@ -26,6 +32,8 @@ public class LoginActivity extends AppCompatActivity
     FirebaseAuth firebaseAuth;
     EditText email,password,editText_recaptcha;
     Random random;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -71,6 +79,7 @@ public class LoginActivity extends AppCompatActivity
                         progressBar.setVisibility(View.INVISIBLE);
                         login_button.setVisibility(View.VISIBLE);
                         if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                            getSaveUserInfo();
                         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);}
@@ -91,8 +100,39 @@ public class LoginActivity extends AppCompatActivity
             }
         });
     }
+
+    private void getSaveUserInfo()
+    {
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference().child("AllUser")
+                .child(firebaseAuth.getCurrentUser().getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    editor.putString("imageurl",snapshot.child("imageurl").getValue().toString());
+                    editor.putString("dob",snapshot.child("dob").getValue().toString());
+                    editor.putString("email",snapshot.child("email").getValue().toString());
+                    editor.putString("fullname",snapshot.child("fullname").getValue().toString());
+                    editor.putString("gender",snapshot.child("gender").getValue().toString());
+                    editor.putString("bloodgroup",snapshot.child("bloodgroup").getValue().toString());
+                    editor.putString("mobilenumber",snapshot.child("mobilenumber").getValue().toString());
+                    editor.putString("username",snapshot.child("username").getValue().toString());
+                    editor.apply();
+                }else{
+                    Toast.makeText(getApplicationContext(), "data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getApplicationContext(), "Error :- "+error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void initView()
     {
+        sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+        editor=sharedPreferences.edit();
         login_button=findViewById(R.id.login_button);
         btn2=findViewById(R.id.forget_password);
         btn3=findViewById(R.id.register_button);

@@ -3,7 +3,9 @@ package com.example.bloodbank;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.app.Activity.RESULT_OK;
 import com.unknowncoder.bloodbank.R;
 public class ProfileFragment extends Fragment {
+    SharedPreferences sharedPreferences;
     TextView textView_email,textView_name,textView_gender,textView_number,textView_bloodgroup,textView_dob;
     CircleImageView circleImageView;
     DatabaseReference databaseReference;
@@ -66,6 +70,7 @@ public class ProfileFragment extends Fragment {
 
     private void initViews(View view) 
     {
+        sharedPreferences=getContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         textView_email=view.findViewById(R.id.textView_email);
         textView_name=view.findViewById(R.id.textView_name);
         textView_dob=view.findViewById(R.id.textView_dob);
@@ -104,52 +109,54 @@ public class ProfileFragment extends Fragment {
             return false;});
         popupMenu.show();
     }
-
-    private void getInformationOfUser()
-    {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                if(snapshot.exists())
-                {
-                    String email=snapshot.child("email").getValue().toString();
-                    String fullname=snapshot.child("fullname").getValue().toString();
-                    String imageUrl=snapshot.child("imageurl").getValue().toString();
-                    String dob=snapshot.child("dob").getValue().toString();
-                    String phonenumber=snapshot.child("mobilenumber").getValue().toString();
-                    String bloodGroup=snapshot.child("bloodgroup").getValue().toString();
-                    String gender=snapshot.child("gender").getValue().toString();
-                    if(imageUrl.equals("default"))
-                        circleImageView.setImageResource(R.drawable.ic_baseline_person_24);
-                    else
-                        Glide.with(getContext()).load(imageUrl).into(circleImageView);
-                    textView_email.setText("Email :-"+email);
-                    textView_name.setText(fullname);
-                    textView_bloodgroup.setText("BloodGroup :-"+bloodGroup);
-                    textView_gender.setText("Gender :-"+gender);
-                    textView_dob.setText("Date of Birth :-"+dob);
-                    textView_number.setText("Phone Number :-"+phonenumber);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-                Alerter.create(getParentFragment().getActivity())
-                        .setTitle("Alert")
-                        .setText(error.getMessage())
-                        .setIcon(R.drawable.alerticon)
-                        .setBackgroundColorRes(R.color.black)
-                        .setDuration(2000)
-                        .setOnClickListener(v -> {
-                        }).setOnShowListener(() -> {
-                }).setOnHideListener(() -> {
-                }).show();
-            }
-        });
+    private void getInformationOfUser(){
+        if(sharedPreferences.getString("imageurl","").equals("default"))
+            circleImageView.setImageResource(R.drawable.ic_baseline_person_24);
+        else
+            Glide.with(getContext()).load(sharedPreferences.getString("imageurl","")).into(circleImageView);
+        textView_email.setText("Email :-"+sharedPreferences.getString("email",""));
+        textView_name.setText(sharedPreferences.getString("fullname",""));
+        textView_bloodgroup.setText("BloodGroup :-"+sharedPreferences.getString("bloodgroup",""));
+        textView_gender.setText("Gender :-"+sharedPreferences.getString("gender",""));
+        textView_dob.setText("Date of Birth :-"+sharedPreferences.getString("dob",""));
+        textView_number.setText("Phone Number :-"+sharedPreferences.getString("mobilenumber",""));
     }
+//    private void getInformationOfUser()
+//    {
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot)
+//            {
+//                if(snapshot.exists())
+//                {
+//                    String email=snapshot.child("email").getValue().toString();
+//                    String fullname=snapshot.child("fullname").getValue().toString();
+//                    String imageUrl=snapshot.child("imageurl").getValue().toString();
+//                    String dob=snapshot.child("dob").getValue().toString();
+//                    String phonenumber=snapshot.child("mobilenumber").getValue().toString();
+//                    String bloodGroup=snapshot.child("bloodgroup").getValue().toString();
+//                    String gender=snapshot.child("gender").getValue().toString();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error)
+//            {
+//                Alerter.create(getParentFragment().getActivity())
+//                        .setTitle("Alert")
+//                        .setText(error.getMessage())
+//                        .setIcon(R.drawable.alerticon)
+//                        .setBackgroundColorRes(R.color.black)
+//                        .setDuration(2000)
+//                        .setOnClickListener(v -> {
+//                        }).setOnShowListener(() -> {
+//                }).setOnHideListener(() -> {
+//                }).show();
+//            }
+//        });
+//    }
 
     private void removeImage()
     {
@@ -197,14 +204,16 @@ public class ProfileFragment extends Fragment {
                     HashMap<String,Object> map=new HashMap<>();
                     map.put("imageurl",mUri);
                     databaseReference.updateChildren(map);
-
+                    getImgeUrl();
+                    getInformationOfUser();
                     progressDialog.dismiss();
                 }else{
                     Toast.makeText(getContext(),"Failed",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
-            }).addOnFailureListener(e ->
-                    Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show());
+            }).addOnFailureListener(e ->{
+                            Log.e("error",e.getLocalizedMessage());
+                    Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT).show();});
         }else {
             Toast.makeText(getContext(),"no image selected",Toast.LENGTH_SHORT).show();
         }
@@ -222,5 +231,24 @@ public class ProfileFragment extends Fragment {
                 uploadImage();
             }
         }
+    }
+
+    private void getImgeUrl(){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.putString("imageurl",snapshot.child("imageurl").getValue().toString());
+                }else {
+                    Toast.makeText(getActivity(), "url not found...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Error:-"+error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

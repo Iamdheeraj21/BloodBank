@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_home, container, false);
         initViews(view);
-        getTheUserInformation();
         getAllNotifications();
         send_request.setOnClickListener(v ->{
             AlertDialog.Builder alertDialogBox;
@@ -67,25 +66,5 @@ public class HomeFragment extends Fragment {
         adapter=new NotificationAdapter(options);
         notification_recyclerView.setAdapter(adapter);
         adapter.startListening();
-    }
-
-    private void getTheUserInformation(){
-        String currentUSerId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("AllUser");
-        databaseReference.child(currentUSerId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    String imageUrl=snapshot.child("imageurl").getValue().toString();
-                    if(imageUrl.equals("default")){
-                        Toast.makeText(getActivity(), "Please upload your Passport size photo!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
