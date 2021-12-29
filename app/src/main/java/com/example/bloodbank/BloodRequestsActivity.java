@@ -79,6 +79,6 @@ public class BloodRequestsActivity extends AppCompatActivity
         assert firebaseUser != null;
         currentUser=firebaseUser.getUid();
         bloodRequests=new ArrayList<>();
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("BloodRequest");
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("BloodBankRequest");
     }
 }

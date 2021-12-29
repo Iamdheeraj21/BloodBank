@@ -114,7 +114,7 @@ public class ProfileFragment extends Fragment {
             circleImageView.setImageResource(R.drawable.ic_baseline_person_24);
         else
             Glide.with(getContext()).load(sharedPreferences.getString("imageurl","")).into(circleImageView);
-        textView_email.setText("Email :-"+sharedPreferences.getString("email",""));
+        textView_email.setText(sharedPreferences.getString("email",""));
         textView_name.setText(sharedPreferences.getString("fullname",""));
         textView_bloodgroup.setText("BloodGroup :-"+sharedPreferences.getString("bloodgroup",""));
         textView_gender.setText("Gender :-"+sharedPreferences.getString("gender",""));
@@ -234,6 +234,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getImgeUrl(){
+        databaseReference=FirebaseDatabase.getInstance().getReference("AllUser").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -244,7 +246,6 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getActivity(), "url not found...", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getActivity(), "Error:-"+error.getMessage(), Toast.LENGTH_SHORT).show();

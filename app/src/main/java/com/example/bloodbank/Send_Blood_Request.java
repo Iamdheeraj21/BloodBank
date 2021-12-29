@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -119,27 +120,14 @@ public class Send_Blood_Request extends AppCompatActivity
         hashMap.put("date",dateData);
         hashMap.put("status","Active");
         DatabaseReference databaseReference1;
-        databaseReference1=FirebaseDatabase.getInstance().getReference().child("BloodRequest");
-        databaseReference1.child(bloodBankUid).child(current_user).setValue(hashMap).addOnCompleteListener(task ->
+        databaseReference1=FirebaseDatabase.getInstance().getReference();
+        databaseReference1.child("BloodBankRequest").child(current_user).setValue(hashMap).addOnCompleteListener(task ->
         {
             if(task.isSuccessful()){
-                databaseReference1.child(current_user).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        if(task.isSuccessful()){
-                            mediaPlayer.start();
-                            progressDialog.dismiss();
-                            startActivity(new Intent(Send_Blood_Request.this,MainActivity.class));
-                            toast.show();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Send_Blood_Request.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                mediaPlayer.start();
+                progressDialog.dismiss();
+                startActivity(new Intent(Send_Blood_Request.this,MainActivity.class));
+                toast.show();
             }else {
                 progressDialog.dismiss();
                 Toast.makeText(this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -158,9 +146,10 @@ public class Send_Blood_Request extends AppCompatActivity
             {
                 if(snapshot.exists())
                 {
-                    String name=snapshot.child("fullname").getValue().toString();
-                    //String phonenumber=snapshot.child("phonenumber").getValue().toString();
-                    //editText2.setText(phonenumber);
+                    SharedPreferences sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+                    String phonenumber=sharedPreferences.getString("mobilenumber","");
+                    String name=sharedPreferences.getString("fullname","");
+                    editText2.setText(phonenumber);
                     editText1.setText(name);
                 }
             }
