@@ -3,30 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="#D3BCBC"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="#B6B6B6"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="5dp"
     tools:ignore="HardcodedText"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     android:elevation="20dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relative_layout">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
             android:id="@+id/blood_donor_image"
-            android:src="@drawable/ic_baseline_person_24"/>
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_width="1dp" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Blood Donor Name"
-            android:textStyle="bold"
-            android:textSize="25sp"
             android:id="@+id/blood_donor_name"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="25dp"/>
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/blood_donor_image"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Blood Donor Name"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

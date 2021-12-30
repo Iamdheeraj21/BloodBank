@@ -15,12 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,7 +33,7 @@ public class SearchFragment extends Fragment {
     EditText editText;
     RecyclerView recyclerView;
     String string="";
-    Button button;
+    ImageView button;
     DatabaseReference databaseReference;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -43,7 +45,7 @@ public class SearchFragment extends Fragment {
         button.setOnClickListener(v -> {
             string=editText.getText().toString();
             if(editText.getText().toString().equals(""))
-                Toast.makeText(getContext(), "Please enter name!", Toast.LENGTH_SHORT).show();
+                showSnackbar("Enter the name");
             else
                 searchBloodDonor(string);
         });
@@ -85,7 +87,7 @@ public class SearchFragment extends Fragment {
                 if(model.getImageurl().equals("default"))
                     holder.circleImageView.setImageResource(R.drawable.ic_baseline_person_24);
                 else
-                    Glide.with(getContext()).load(model.getImageurl()).into(holder.circleImageView);
+                    Glide.with(getActivity()).load(model.getImageurl()).into(holder.circleImageView);
 
                 holder.itemView.setOnClickListener(v -> {
                     String blood_donor_id=getRef(position).getKey();
@@ -114,5 +116,11 @@ public class SearchFragment extends Fragment {
             circleImageView=itemView.findViewById(R.id.blood_donor_image);
             textView=itemView.findViewById(R.id.blood_donor_name);
         }
+    }
+
+    private void showSnackbar(String msg){
+        Snackbar snackBar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                msg, Snackbar.LENGTH_LONG);
+        snackBar.show();
     }
 }
