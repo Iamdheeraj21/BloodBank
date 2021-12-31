@@ -1,4 +1,4 @@
-package com.example.bloodbank;
+package com.unknowncoder.bloodbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 

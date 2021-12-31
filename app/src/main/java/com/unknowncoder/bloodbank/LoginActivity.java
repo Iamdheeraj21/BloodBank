@@ -1,4 +1,4 @@
-package com.example.bloodbank;
+package com.unknowncoder.bloodbank;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -21,7 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.unknowncoder.bloodbank.R;
 
 import java.util.Random;
 
@@ -112,6 +111,7 @@ public class LoginActivity extends AppCompatActivity
                     editor.putString("imageurl",snapshot.child("imageurl").getValue().toString());
                     editor.putString("dob",snapshot.child("dob").getValue().toString());
                     editor.putString("email",snapshot.child("email").getValue().toString());
+                    editor.putString("user_type",snapshot.child("user_type").getValue().toString());
                     editor.putString("fullname",snapshot.child("fullname").getValue().toString());
                     editor.putString("gender",snapshot.child("gender").getValue().toString());
                     editor.putString("bloodgroup",snapshot.child("bloodgroup").getValue().toString());

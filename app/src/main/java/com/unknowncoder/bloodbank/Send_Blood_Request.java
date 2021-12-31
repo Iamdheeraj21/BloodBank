@@ -1,4 +1,4 @@
-package com.example.bloodbank;
+package com.unknowncoder.bloodbank;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +34,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import com.unknowncoder.bloodbank.R;
+
 public class Send_Blood_Request extends AppCompatActivity
 {
     Spinner spinner;

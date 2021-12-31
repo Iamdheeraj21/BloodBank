@@ -4,7 +4,8 @@
     package="com.unknowncoder.bloodbank">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,44 +14,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodBank"
         tools:ignore="AllowBackup">
-        <activity android:name="com.example.bloodbank.Send_Blood_Request"
-            android:parentActivityName="com.example.bloodbank.Blood_Donor_profile"
-            android:exported="false"
-            android:label="Send Mail To Donor"/>
         <activity
-            android:name="com.example.bloodbank.BloodRequestsActivity"
+            android:name=".StartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Send_Blood_Request"
+            android:exported="false"
+            android:label="Send Mail To Donor"
+            android:parentActivityName=".Blood_Donor_profile" />
+        <activity
+            android:name=".BloodRequestsActivity"
+            android:exported="false"
             android:label="My Requests"
-            android:exported="false"
-            android:parentActivityName="com.example.bloodbank.MainActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name="com.example.bloodbank.Send_Mail_To_Donor"
+            android:name=".Send_Mail_To_Donor"
+            android:exported="false"
             android:label="Blood Request"
-            android:exported="false"
-            android:parentActivityName="com.example.bloodbank.MainActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:exported="false"
-            android:name="com.example.bloodbank.Blood_Donor_profile"/>
+            android:name=".Blood_Donor_profile"
+            android:exported="false" />
         <activity
-            android:name="com.example.bloodbank.RegisterActivity"
+            android:name=".RegisterActivity"
+            android:exported="false"
             android:label="Register Activity"
-            android:exported="false"
-            android:parentActivityName="com.example.bloodbank.LoginActivity" />
+            android:parentActivityName=".LoginActivity" />
         <activity
-            android:name="com.example.bloodbank.About_Us"
+            android:name=".About_Us"
             android:exported="false"
-            android:parentActivityName="com.example.bloodbank.MainActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name="com.example.bloodbank.Forget_Password"
+            android:name=".Forget_Password"
             android:exported="false"
             android:label="Forget Password Activity"
-            android:parentActivityName="com.example.bloodbank.LoginActivity" />
+            android:parentActivityName=".LoginActivity" />
         <activity
-            android:name="com.example.bloodbank.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="false"
             android:label="Login Activity" />
-        <activity android:name="com.example.bloodbank.MainActivity"
-            android:exported="false"/>
-        <activity android:name="com.example.bloodbank.StartActivity"
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

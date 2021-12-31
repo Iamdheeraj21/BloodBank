@@ -1,4 +1,4 @@
-package com.example.bloodbank;
+package com.unknowncoder.bloodbank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,20 +8,20 @@ import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.unknowncoder.bloodbank.R;
-public class StartActivity extends AppCompatActivity {
+
+public class IntroActivity extends AppCompatActivity {
     Handler handler;
     FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_activity);
+        setContentView(R.layout.intro_activity);
         handler=new Handler();
 
         handler.postDelayed(() -> {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if(firebaseUser != null && firebaseUser.isEmailVerified()){
-                Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                Intent intent = new Intent(IntroActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }else

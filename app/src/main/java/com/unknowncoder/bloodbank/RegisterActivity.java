@@ -1,4 +1,4 @@
-package com.example.bloodbank;
+package com.unknowncoder.bloodbank;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tapadoo.alerter.Alerter;
 
 import java.util.HashMap;
-import com.unknowncoder.bloodbank.R;
+
 public class RegisterActivity extends AppCompatActivity {
     EditText editText1, editText2, editText3, editText4, editText5, editText6,editText7;
     Button btn1;
@@ -131,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                 hashMap.put("email",email);
                 hashMap.put("dob",dob);
                 hashMap.put("gender",gender);
+                hashMap.put("user_type","user");
                 hashMap.put("bloodgroup",bloodGroup);
                 hashMap.put("mobilenumber",number);
 
@@ -175,6 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
                 hashMap.put("username",username);
                 hashMap.put("email",email);
                 hashMap.put("dob",dob);
+                hashMap.put("user_type","blood_donor");
                 hashMap.put("imageurl","default");
                 hashMap.put("gender",gender);
                 hashMap.put("bloodgroup",bloodGroup);
