@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/aPositive"
+        android:title="@string/a"/>
+    <item android:id="@+id/aNegative"
+        android:title="A-"/>
+    <item android:id="@+id/bPositive"
+        android:title="B+"/>
+    <item android:id="@+id/bNegative"
+        android:title="B-"/>
+    <item android:id="@+id/oPositive"
+        android:title="O+"/>
+    <item android:id="@+id/oNegative"
+        android:title="O-"/>
+    <item android:id="@+id/abPositive"
+        android:title="AB+"/>
+    <item android:id="@+id/abNegative"
+        android:title="AB-"/>
+
+</menu>
