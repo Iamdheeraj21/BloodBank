@@ -26,10 +26,7 @@ public class IntroActivity extends AppCompatActivity {
                 finish();
             }else
                 startActivity(new Intent(this,StartActivity.class));
+                finish();
         },2000);
-    }
-    public void finish(){
-        super.finish();
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 }

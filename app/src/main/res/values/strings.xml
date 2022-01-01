@@ -8,4 +8,6 @@
     <string name="sign_in">Sign In</string>
     <string name="create_account">Create Account</string>
     <string name="login_to_your_account">Login to your account</string>
+    <string name="sign_up_for_free">Sign Up For Free</string>
+    <string name="a">A+</string>
 </resources>

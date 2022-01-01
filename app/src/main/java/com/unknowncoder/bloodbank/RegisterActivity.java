@@ -1,34 +1,48 @@
 package com.unknowncoder.bloodbank;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListPopupWindow;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.tapadoo.alerter.Alerter;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText editText1, editText2, editText3, editText4, editText5, editText6,editText7;
-    Button btn1;
+    TextView btn1;
     CheckBox checkBox;
-    RadioGroup radioGroup;
+    String gender="";
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    RelativeLayout gMale,gFemale;
     ProgressBar bar;
 
     @SuppressLint("SetTextI18n")
@@ -37,10 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initViews();
-        radioGroup.setOnCheckedChangeListener(
-                (group, checkedId) -> {
-                    RadioButton radioButton = group.findViewById(checkedId);
-                });
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (checkBox.isChecked())
                 checkBox.setText("Yes");
@@ -48,47 +58,58 @@ public class RegisterActivity extends AppCompatActivity {
                 checkBox.setText("No");
         });
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = editText1.getText().toString();
-                String username = editText2.getText().toString();
-                String email = editText3.getText().toString();
-                String password = editText4.getText().toString();
-                String dob = editText5.getText().toString();
-                String bloodGroup = editText6.getText().toString();
-                String number=editText7.getText().toString();
-                String gender="";
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton = radioGroup.findViewById(selectedId);
-                if(selectedId==-1)
-                    Toast.makeText(RegisterActivity.this, "please choose you gender", Toast.LENGTH_SHORT).show();
-                else
-                    gender=radioButton.getText().toString();
+        editText6.setOnClickListener(view -> genderPopupShow());
+        editText5.setOnClickListener(view -> showDOB());
+        gMale.setOnClickListener(view -> {
+            gender="male";
+            gMale.setBackgroundResource(R.drawable.white_background);
+            gFemale.setBackgroundResource(R.drawable.gender_bck);
+        });
 
-                if (name.equals("") || username.equals("") || email.equals("") || password.equals("") || dob.equals("")
-                        || bloodGroup.equals("") || number.equals(""))
-                    Toast.makeText(RegisterActivity.this, "Please fill the blank", Toast.LENGTH_SHORT).show();
-                else if (!(bloodGroup.length() == 2))
-                    Toast.makeText(RegisterActivity.this, "Blood group only 2 character only...", Toast.LENGTH_SHORT).show();
-                else if(!(number.length() ==10))
-                    Toast.makeText(RegisterActivity.this,"Phone number atleast 10 digits..",Toast.LENGTH_SHORT).show();
-                else if (password.length() <= 7)
-                    Alerter.create(RegisterActivity.this)
-                            .setTitle("Alert")
-                            .setText("Password at least 8 digits")
-                            .setIcon(R.drawable.alerticon)
-                            .setBackgroundColorRes(R.color.white)
-                            .setDuration(2000).setOnClickListener(v1 -> {
-                    }).setOnShowListener(() -> {
-                    }).setOnHideListener(() -> {
-                    });
-                else if (checkBox.isChecked())
-                    registerBloodDonor(name, username, email, password, dob, bloodGroup, gender,number);
+        gFemale.setOnClickListener(view -> {
+            gender="female";
+            gMale.setBackgroundResource(R.drawable.gender_bck);
+            gFemale.setBackgroundResource(R.drawable.white_background);
+        });
 
-                if (!checkBox.isChecked())
-                    registerOnlyUser(name, username, email, password, dob, bloodGroup,gender,number);
+        btn1.setOnClickListener(v -> {
+            String name = editText1.getText().toString();
+            String username = editText2.getText().toString();
+            String email = editText3.getText().toString();
+            String password = editText4.getText().toString();
+            String dob = editText5.getText().toString();
+            String bloodGroup = editText6.getText().toString();
+            String number=editText7.getText().toString();
+
+            if(gender.equals("")){
+                Snackbar.make(findViewById(android.R.id.content), "Please select your gender..",
+                        Snackbar.LENGTH_LONG).show();
             }
+            else if (name.equals("") || username.equals("") || email.equals("") || password.equals("") || dob.equals("")
+                   || number.equals(""))
+                Snackbar.make(findViewById(android.R.id.content), "Please fill the blank",
+                        Snackbar.LENGTH_LONG).show();
+            else if (bloodGroup.equals(""))
+                Snackbar.make(findViewById(android.R.id.content), "Please select the blood group",
+                        Snackbar.LENGTH_LONG).show();
+            else if(!(number.length() ==10))
+                Snackbar.make(findViewById(android.R.id.content), "Phone number atleast 10 digits..",
+                        Snackbar.LENGTH_LONG).show();
+            else if (password.length() <= 7)
+                Alerter.create(RegisterActivity.this)
+                        .setTitle("Alert")
+                        .setText("Password at least 8 digits")
+                        .setIcon(R.drawable.alerticon)
+                        .setBackgroundColorRes(R.color.white)
+                        .setDuration(2000).setOnClickListener(v1 -> {
+                }).setOnShowListener(() -> {
+                }).setOnHideListener(() -> {
+                });
+            else if (checkBox.isChecked())
+                registerBloodDonor(name, username, email, password, dob, bloodGroup, gender,number);
+            else if (!checkBox.isChecked())
+            {
+                registerOnlyUser(name, username, email, password, dob, bloodGroup,gender,number);}
         });
     }
 
@@ -101,7 +122,8 @@ public class RegisterActivity extends AppCompatActivity {
         editText5 = findViewById(R.id.editText5);
         editText6 = findViewById(R.id.editText6);
         editText7 =findViewById(R.id.editText7);
-        radioGroup = findViewById(R.id.radiogroup);
+        gMale=findViewById(R.id.gMale);
+        gFemale=findViewById(R.id.gFeMale);
         firebaseAuth = FirebaseAuth.getInstance();
         checkBox = findViewById(R.id.checkbox);
         btn1 = findViewById(R.id.button1);
@@ -111,11 +133,15 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        radioGroup.clearCheck();
         bar.setVisibility(View.INVISIBLE);
     }
 
-    private void registerOnlyUser(String name, String username, String email, String password, String dob, String bloodGroup,String gender,String number)
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    private void registerOnlyUser(String name, String username, String email, String password, String dob, String bloodGroup, String gender, String number)
     {
         bar.setVisibility(View.VISIBLE);
         btn1.setVisibility(View.INVISIBLE);
@@ -217,12 +243,6 @@ public class RegisterActivity extends AppCompatActivity {
         String bloodGroup = editText6.getText().toString();
         String number=editText7.getText().toString();
         String gender="";
-        int selectedId = radioGroup.getCheckedRadioButtonId();
-        RadioButton radioButton = radioGroup.findViewById(selectedId);
-        if(selectedId==-1)
-            Toast.makeText(RegisterActivity.this, "please choose you gender", Toast.LENGTH_SHORT).show();
-        else
-            gender=radioButton.getText().toString();
 
         FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
 
@@ -244,5 +264,36 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> Toast.makeText(RegisterActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
+    }
+
+    private void genderPopupShow(){
+        PopupMenu popupMenu=new PopupMenu(this,editText6);
+        popupMenu.getMenuInflater().inflate(R.menu.blood_groups, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                editText6.setText(menuItem.getTitle());
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void showDOB(){
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "dd MMMM yyyy"; // your format
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                editText5.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+        new DatePickerDialog(RegisterActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar
+                .get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }

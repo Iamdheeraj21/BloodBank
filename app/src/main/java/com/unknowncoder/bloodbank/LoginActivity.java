@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity
 {
-    Button btn2,btn3;
+    TextView btn2,btn3;
     TextView login_button,recaptcha;
     FirebaseAuth firebaseAuth;
     EditText email,password,editText_recaptcha;
