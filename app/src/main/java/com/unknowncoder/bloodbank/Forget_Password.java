@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,8 +18,7 @@ import java.util.Random;
 public class Forget_Password extends AppCompatActivity
 {
     EditText editText1,editText2;
-    Button btn1;
-    TextView textView;
+    TextView textView,btn1;
     FirebaseAuth firebaseAuth;
     AlertDialog.Builder alertDialog;
     Random random;
@@ -28,8 +26,10 @@ public class Forget_Password extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         setContentView(R.layout.activity_forget_password);
         initViews();
+        alertDialog=new AlertDialog.Builder(this);
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("Are you sure your email-address is correct?");
         btn1.setOnClickListener(v -> {
@@ -79,5 +79,11 @@ public class Forget_Password extends AppCompatActivity
         int recaptcha_num=random.nextInt(2500)+5000;
         String recaptcha_number=String.valueOf(recaptcha_num);
         textView.setText(recaptcha_number);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Forget_Password.this,LoginActivity.class));
+        finish();
     }
 }

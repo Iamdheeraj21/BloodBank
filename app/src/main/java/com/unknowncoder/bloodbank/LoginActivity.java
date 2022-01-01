@@ -1,6 +1,7 @@
 package com.unknowncoder.bloodbank;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         setContentView(R.layout.activity_login);
         initView();
         btn2.setOnClickListener(v ->
@@ -117,6 +119,7 @@ public class LoginActivity extends AppCompatActivity
                     editor.putString("bloodgroup",snapshot.child("bloodgroup").getValue().toString());
                     editor.putString("mobilenumber",snapshot.child("mobilenumber").getValue().toString());
                     editor.putString("username",snapshot.child("username").getValue().toString());
+                    editor.putString("login","yes");
                     editor.apply();
                 }else{
                     Toast.makeText(getApplicationContext(), "data not found", Toast.LENGTH_SHORT).show();
@@ -150,12 +153,33 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+        String alertBox=sharedPreferences.getString("showed","");
+        if(!alertBox.equals("yes")){
+            showAlertBox();
+        }
+    }
+
+    private void showAlertBox() {
         AlertDialog.Builder alert=new AlertDialog.Builder(LoginActivity.this);
         alert.setMessage("If you are new user then first verify your email(Check your email)")
-                .setPositiveButton("Okay", (dialog, which) ->
-                        Toast.makeText(LoginActivity.this,"Thank you",Toast.LENGTH_SHORT).show());
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+                        SharedPreferences.Editor editor=sharedPreferences.edit();
+                        editor.putString("showed","yes");
+                        editor.apply();
+                    }
+                });
         AlertDialog alertDialog=alert.create();
         alertDialog.setTitle("Notice");
         alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LoginActivity.this,StartActivity.class));
+        finish();
     }
 }

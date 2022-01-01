@@ -138,7 +138,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(RegisterActivity.this,StartActivity.class));
+        finish();
     }
 
     private void registerOnlyUser(String name, String username, String email, String password, String dob, String bloodGroup, String gender, String number)
