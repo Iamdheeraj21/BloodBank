@@ -5,193 +5,272 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="#E61818">
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText1"
-        android:hint="Enter the name!"
-        android:drawableStart="@drawable/ic_baseline_person_24"
-        android:drawablePadding="10dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="10dp"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText2"
-        android:layout_below="@id/editText1"
-        android:hint="Username"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="10dp"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText3"
-        android:layout_below="@id/editText2"
-        android:hint="Email Address"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="10dp"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText4"
-        android:layout_below="@id/editText3"
-        android:hint="Create a password"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="10dp"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText7"
-        android:layout_below="@id/editText4"
-        android:hint="Mobile Number"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="10dp"
-        tools:ignore="HardcodedText" />
+    android:background="@color/app_color">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Date of Birth"
+        android:text="Sign Up For Free"
+        android:textColor="@color/black"
         android:textStyle="bold"
-        android:layout_below="@id/editText7"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="40dp"
-        tools:ignore="HardcodedText" />
+        android:id="@+id/textHeading"
+        android:textSize="25sp"
+        android:layout_marginTop="50dp"
+        android:textAlignment="center"/>
 
-    <EditText
-        android:layout_width="120dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText5"
-        android:hint="dd/mm/yy"
-        android:layout_below="@id/editText7"
-        android:layout_marginStart="200dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="15dp"
-        tools:ignore="HardcodedText" />
+        android:layout_below="@id/textHeading"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Blood Group"
-        android:layout_below="@id/editText5"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="40dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        tools:ignore="HardcodedText" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:autofillHints="no"
-        android:inputType="text"
-        android:id="@+id/editText6"
-        android:layout_below="@id/editText5"
-        android:layout_marginStart="200dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="15dp"
-        tools:ignore="HardcodedText" />
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawablePadding="10dp"
+                android:hint="Enter the name!"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gender"
-        android:layout_below="@id/editText6"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="40dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        tools:ignore="HardcodedText" />
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:hint="Username"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/radiogroup"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="150dp"
-        android:layout_below="@id/editText6">
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:hint="Email Address"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
 
-        <RadioButton
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:hint="Create a password"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/editText7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:hint="Mobile Number"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"
-            android:id="@+id/radioButton1"
-            tools:ignore="HardcodedText" />
-        <RadioButton
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Date of Birth"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:hint="dd/mm/yy"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female"
-            android:id="@+id/radioButton2"
-            tools:ignore="HardcodedText" />
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-    </RadioGroup>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Blood Group"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Are you Blood Donor?"
-    android:layout_below="@id/radiogroup"
-    android:layout_marginTop="33dp"
-    android:layout_marginStart="40dp"
-    android:textStyle="bold"
-    android:textSize="20sp"
-    tools:ignore="HardcodedText" />
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="no"
+                android:background="@drawable/editext_white_shpe"
+                android:inputType="text"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginStart="30dp"
+                android:paddingBottom="10dp"
+                tools:ignore="HardcodedText" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yes"
-        android:id="@+id/checkbox"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/radiogroup"
-        android:layout_marginStart="250dp"
-        tools:ignore="HardcodedText" />
+        </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:id="@+id/button1"
-        android:layout_below="@id/checkbox"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        tools:ignore="HardcodedText" />
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/checkbox"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:id="@+id/pogressBarSignUp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Gender"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Male"
+                    tools:ignore="HardcodedText" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="Female"
+                    tools:ignore="HardcodedText" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Are you Blood Donor?"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="Yes"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/black_button_background"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="15dp"
+                android:text="Create Account"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+
+            <ProgressBar
+                android:id="@+id/pogressBarSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
