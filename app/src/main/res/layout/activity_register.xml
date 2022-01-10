@@ -133,20 +133,19 @@
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
-                <EditText
-                    android:id="@+id/editText5"
+                <TextView
+                    android:id="@+id/dobText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:autofillHints="no"
                     android:background="@drawable/editext_white_shpe"
-                    android:drawableEnd="@drawable/ic_calendar"
                     android:hint="DOB"
-                    android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"
+                    app:drawableEndCompat="@drawable/ic_calendar" />
             </LinearLayout>
 
             <LinearLayout
@@ -165,8 +164,8 @@
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
-                <EditText
-                    android:id="@+id/editText6"
+                <TextView
+                    android:id="@+id/bloodGroup"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -297,6 +296,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp"
                 android:orientation="horizontal">
 
                 <TextView

@@ -5,6 +5,9 @@
         android:id="@+id/bottom_home"
         android:icon="@drawable/home"
         tools:ignore="HardcodedText" />
+    <item android:id="@+id/map"
+        android:title="@string/map"
+        android:icon="@drawable/ic_map"/>
     <item android:title="Blood Donors"
         android:id="@+id/bottom_blood_donors"
         android:icon="@drawable/blood_donor"
@@ -13,4 +16,5 @@
         android:id="@+id/bottom_profile"
         android:icon="@drawable/person"
         tools:ignore="HardcodedText" />
+
 </menu>

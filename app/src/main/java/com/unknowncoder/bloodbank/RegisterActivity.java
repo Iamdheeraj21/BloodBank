@@ -36,14 +36,15 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText editText1, editText2, editText3, editText4, editText5, editText6,editText7;
-    TextView btn1;
+    EditText editText1, editText2, editText3, editText4,editText7;
+    TextView btn1,dobText,bloodGroup;
     CheckBox checkBox;
     String gender="";
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     RelativeLayout gMale,gFemale;
     ProgressBar bar;
+    String dob="",blood_Group="";
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -58,8 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
                 checkBox.setText("No");
         });
 
-        editText6.setOnClickListener(view -> genderPopupShow());
-        editText5.setOnClickListener(view -> showDOB());
+        bloodGroup.setOnClickListener(view -> genderPopupShow());
+        dobText.setOnClickListener(view -> showDOB());
         gMale.setOnClickListener(view -> {
             gender="male";
             gMale.setBackgroundResource(R.drawable.white_background);
@@ -77,19 +78,20 @@ public class RegisterActivity extends AppCompatActivity {
             String username = editText2.getText().toString();
             String email = editText3.getText().toString();
             String password = editText4.getText().toString();
-            String dob = editText5.getText().toString();
-            String bloodGroup = editText6.getText().toString();
             String number=editText7.getText().toString();
 
             if(gender.equals("")){
                 Snackbar.make(findViewById(android.R.id.content), "Please select your gender..",
                         Snackbar.LENGTH_LONG).show();
             }
-            else if (name.equals("") || username.equals("") || email.equals("") || password.equals("") || dob.equals("")
-                   || number.equals(""))
+            else if (name.equals("") || username.equals("") || email.equals("") || password.equals("")|| number.equals(""))
                 Snackbar.make(findViewById(android.R.id.content), "Please fill the blank",
                         Snackbar.LENGTH_LONG).show();
-            else if (bloodGroup.equals(""))
+            else if(dob.equals("")){
+                Snackbar.make(findViewById(android.R.id.content), "Please select DOB",
+                        Snackbar.LENGTH_LONG).show();
+            }
+            else if (blood_Group.equals(""))
                 Snackbar.make(findViewById(android.R.id.content), "Please select the blood group",
                         Snackbar.LENGTH_LONG).show();
             else if(!(number.length() ==10))
@@ -106,10 +108,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }).setOnHideListener(() -> {
                 });
             else if (checkBox.isChecked())
-                registerBloodDonor(name, username, email, password, dob, bloodGroup, gender,number);
+                registerBloodDonor(name, username, email, password, dob, blood_Group, gender,number);
             else if (!checkBox.isChecked())
             {
-                registerOnlyUser(name, username, email, password, dob, bloodGroup,gender,number);}
+                registerOnlyUser(name, username, email, password, dob, blood_Group,gender,number);}
         });
     }
 
@@ -119,8 +121,8 @@ public class RegisterActivity extends AppCompatActivity {
         editText2 = findViewById(R.id.editText2);
         editText3 = findViewById(R.id.editText3);
         editText4 = findViewById(R.id.editText4);
-        editText5 = findViewById(R.id.editText5);
-        editText6 = findViewById(R.id.editText6);
+        dobText = findViewById(R.id.dobText);
+        bloodGroup = findViewById(R.id.bloodGroup);
         editText7 =findViewById(R.id.editText7);
         gMale=findViewById(R.id.gMale);
         gFemale=findViewById(R.id.gFeMale);
@@ -206,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity {
                 hashMap.put("user_type","blood_donor");
                 hashMap.put("imageurl","default");
                 hashMap.put("gender",gender);
-                hashMap.put("bloodgroup",bloodGroup);
+                hashMap.put("bloodgroup",blood_Group);
                 hashMap.put("mobilenumber",number);
 
                 databaseReference.setValue(hashMap).addOnCompleteListener(task12 -> {
@@ -240,8 +242,6 @@ public class RegisterActivity extends AppCompatActivity {
         String name = editText1.getText().toString();
         String username = editText2.getText().toString();
         String email = editText3.getText().toString();
-        String dob = editText5.getText().toString();
-        String bloodGroup = editText6.getText().toString();
         String number=editText7.getText().toString();
         String gender="";
 
@@ -254,7 +254,7 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("username",username);
         hashMap.put("dob",dob);
         hashMap.put("gender",gender);
-        hashMap.put("bloodgroup",bloodGroup);
+        hashMap.put("bloodgroup",blood_Group);
         hashMap.put("imageurl","default");
         hashMap.put("mobilenumber",number);
         
@@ -268,12 +268,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void genderPopupShow(){
-        PopupMenu popupMenu=new PopupMenu(this,editText6);
+        PopupMenu popupMenu=new PopupMenu(this,bloodGroup);
         popupMenu.getMenuInflater().inflate(R.menu.blood_groups, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                editText6.setText(menuItem.getTitle());
+                bloodGroup.setText(menuItem.getTitle());
+                blood_Group= String.valueOf(menuItem.getTitle());
                 return true;
             }
         });
@@ -291,7 +292,8 @@ public class RegisterActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 String myFormat = "dd MMMM yyyy"; // your format
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-                editText5.setText(sdf.format(myCalendar.getTime()));
+                dob=sdf.format(myCalendar.getTime());
+                dobText.setText(sdf.format(myCalendar.getTime()));
             }
         };
         new DatePickerDialog(RegisterActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar

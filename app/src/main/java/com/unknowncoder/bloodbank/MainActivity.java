@@ -17,6 +17,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.unknowncoder.bloodbank.fragments.HomeFragment;
+import com.unknowncoder.bloodbank.fragments.MapFragment;
+import com.unknowncoder.bloodbank.fragments.ProfileFragment;
+import com.unknowncoder.bloodbank.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -94,6 +98,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.bottom_profile:
                 selectedFragment = new ProfileFragment();
+                break;
+            case R.id.map:
+                selectedFragment=new MapFragment();
                 break;
 
         }
