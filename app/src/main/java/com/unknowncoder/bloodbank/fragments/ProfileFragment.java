@@ -1,4 +1,4 @@
-package com.unknowncoder.bloodbank;
+package com.unknowncoder.bloodbank.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;

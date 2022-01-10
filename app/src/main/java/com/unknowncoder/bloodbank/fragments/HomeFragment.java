@@ -1,4 +1,4 @@
-package com.unknowncoder.bloodbank;
+package com.unknowncoder.bloodbank.fragments;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.unknowncoder.bloodbank.R;
+import com.unknowncoder.bloodbank.Send_Blood_Request;
 
 import Notifications.Notification;
 import Notifications.NotificationAdapter;
@@ -39,7 +41,7 @@ public class HomeFragment extends Fragment {
             alertDialogBox.setMessage("1. If your information is wrong and fake then take the action against you by the Police!\n" +
                     "2. So Fill the Correct information!");
             alertDialogBox.setPositiveButton("Okay", (dialog, which) ->
-                    startActivity(new Intent(getContext(),Send_Blood_Request.class))).setNegativeButton("Cancel",null);
+                    startActivity(new Intent(getContext(), Send_Blood_Request.class))).setNegativeButton("Cancel",null);
             alertDialogBox.show();
         });
         return view;

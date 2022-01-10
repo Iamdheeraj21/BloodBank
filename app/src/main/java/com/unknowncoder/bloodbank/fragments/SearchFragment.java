@@ -1,4 +1,4 @@
-package com.unknowncoder.bloodbank;
+package com.unknowncoder.bloodbank.fragments;
 
 import android.content.Intent;
 import android.os.Build;
@@ -25,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.unknowncoder.bloodbank.Adapter.BloodDonor;
+import com.unknowncoder.bloodbank.Blood_Donor_profile;
+import com.unknowncoder.bloodbank.R;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchFragment extends Fragment {
@@ -89,7 +92,7 @@ public class SearchFragment extends Fragment {
 
                 holder.itemView.setOnClickListener(v -> {
                     String blood_donor_id=getRef(position).getKey();
-                    Intent intent=new Intent(getContext(),Blood_Donor_profile.class);
+                    Intent intent=new Intent(getContext(), Blood_Donor_profile.class);
                     intent.putExtra("blood_donor_id",blood_donor_id);
                     startActivity(intent);
                 });
