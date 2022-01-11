@@ -6,27 +6,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ProfileFragment">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/linear"
+        android:background="@color/app_color"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_round_arrow_back_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/your_profile"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="27sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageview2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_below="@id/header"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_baseline_person_24"
+                app:civ_border_color="@color/white"
                 app:civ_border_width="3dp"
                 tools:ignore="ContentDescription" />
 
@@ -34,76 +58,183 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
+                android:layout_marginBottom="150dp"
+                android:layout_marginEnd="10dp"
+                android:layout_below="@id/imageview2"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:hint="Name"
-                    android:layout_marginStart="5dp"
-                    android:textSize="23sp"
-                    tools:ignore="HardcodedText" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/full_name"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/textView_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:hint="Name"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        tools:ignore="HardcodedText" />
 
-                <TextView
-                    android:id="@+id/textView_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:layout_marginStart="5dp"
-                    tools:ignore="HardcodedText" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email_address"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/textView_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:hint="Email address"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/text_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:hint="Male"
+                        android:drawableEnd="@drawable/ic_down"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_of_birth"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/textView_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:hint="DOB"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:drawableEnd="@drawable/ic_calendar"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/blood_group"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/textView_bloodGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:hint="Blood Group"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:drawableEnd="@drawable/ic_down"
+                        android:textSize="22sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone_number"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:id="@+id/textView_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:hint="Phone Number"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        tools:ignore="HardcodedText" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/text_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:hint="Gender"
-            android:textSize="20sp"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Date of Birth"
-            android:id="@+id/textView_dob"
-            android:textSize="20sp"
-            android:layout_marginStart="30dp"
-            tools:ignore="HardcodedText"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/text_gender"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:id="@+id/textView_phone"
-            android:textSize="20sp"
-            android:layout_marginStart="30dp"
-            tools:ignore="HardcodedText"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/textView_dob"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Blood Group"
-            android:id="@+id/textView_bloodGroup"
-            android:textSize="20sp"
-            android:layout_marginStart="30dp"
-            tools:ignore="HardcodedText"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/textView_phone"/>
-
-    </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
 </FrameLayout>

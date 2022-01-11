@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="map">Map</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="full_name">Full Name</string>
+    <string name="email_address">Email address</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="blood_group">Blood Group</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

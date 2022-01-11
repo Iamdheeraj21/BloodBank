@@ -116,10 +116,10 @@ public class ProfileFragment extends Fragment {
             Glide.with(getContext()).load(sharedPreferences.getString("imageurl","")).into(circleImageView);
         textView_email.setText(sharedPreferences.getString("email",""));
         textView_name.setText(sharedPreferences.getString("fullname",""));
-        textView_bloodgroup.setText("BloodGroup :-"+sharedPreferences.getString("bloodgroup",""));
-        textView_gender.setText("Gender :-"+sharedPreferences.getString("gender",""));
-        textView_dob.setText("Date of Birth :-"+sharedPreferences.getString("dob",""));
-        textView_number.setText("Phone Number :-"+sharedPreferences.getString("mobilenumber",""));
+        textView_bloodgroup.setText(sharedPreferences.getString("bloodgroup",""));
+        textView_gender.setText(sharedPreferences.getString("gender",""));
+        textView_dob.setText(sharedPreferences.getString("dob",""));
+        textView_number.setText(sharedPreferences.getString("mobilenumber",""));
     }
 //    private void getInformationOfUser()
 //    {
