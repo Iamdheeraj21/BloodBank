@@ -49,7 +49,6 @@ public class BloodRequestsActivity extends AppCompatActivity
                                 String app_bloodGroup= snapshot.child("bloodgroupname").getValue().toString();
                                 String app_number= snapshot.child("phonenumber").getValue().toString();
                                 String app_status= snapshot.child("status").getValue().toString();
-
                                 bloodRequests.add(new BloodRequest(app_no,app_name,app_bloodGroup,app_number,app_status));
                                 buildRecyclerView();
                             }else

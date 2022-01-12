@@ -7,4 +7,6 @@
     <string name="date_of_birth">Date Of Birth</string>
     <string name="blood_group">Blood Group</string>
     <string name="phone_number">Phone Number</string>
+    <string name="blood_request_information">Blood Request Information</string>
+    <string name="enter_your_name">Enter your name</string>
 </resources>
