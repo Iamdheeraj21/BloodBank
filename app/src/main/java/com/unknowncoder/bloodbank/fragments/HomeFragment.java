@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment {
         EditText name,phone_number;
         TextView blood_group;
         Button submit;
+        final String[] bloodgroup = {""};
 
         name=view.findViewById(R.id.editText7);
         phone_number=view.findViewById(R.id.editText8);
@@ -79,16 +80,28 @@ public class HomeFragment extends Fragment {
         String name_user=sharedPreferences.getString("fullname","");
         phone_number.setText(phonenumber);
         name.setText(name_user);
+
+        blood_group.setOnClickListener(v->{
+            PopupMenu popupMenu=new PopupMenu(getContext(),blood_group);
+            popupMenu.getMenuInflater().inflate(R.menu.blood_groups, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    bloodgroup[0] = (String) menuItem.getTitle();
+                    return true;
+                }
+            });
+            popupMenu.show();
+        });
         submit.setOnClickListener(v->{
             String nString=name.getText().toString().trim();
             String phoneString=phone_number.getText().toString().trim();
-            String bloodGorup=getBloodGroup(blood_group);
 
             if(nString.equals("")){
                 Toast.makeText(getContext(),"Enter the name...",Toast.LENGTH_SHORT).show();
             }else if(phoneString.equals("")){
                 Toast.makeText(getContext(), "Fill the phone number", Toast.LENGTH_SHORT).show();
-            }else if(bloodGorup.equals("")){
+            }else if(bloodgroup[0].equals("")){
                 Toast.makeText(getContext(), "Select the blood group..", Toast.LENGTH_SHORT).show();
             }else{
                  //Todo
@@ -96,22 +109,6 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
-    private String getBloodGroup(TextView blood) {
-        final String[] blood_group = {""};
-        PopupMenu popupMenu=new PopupMenu(getContext(),blood);
-        popupMenu.getMenuInflater().inflate(R.menu.blood_groups, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                blood_group[0] = (String) menuItem.getTitle();
-                return true;
-            }
-        });
-        popupMenu.show();
-        return blood_group[0];
-    }
-
 
     private void initViews(View view){
         send_request=view.findViewById(R.id.blood_request);
