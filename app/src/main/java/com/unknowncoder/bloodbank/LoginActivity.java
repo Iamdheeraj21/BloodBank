@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity
                     editor.putString("bloodgroup",snapshot.child("bloodgroup").getValue().toString());
                     editor.putString("mobilenumber",snapshot.child("mobilenumber").getValue().toString());
                     editor.putString("username",snapshot.child("username").getValue().toString());
+                    editor.putString("id",firebaseAuth.getCurrentUser().getUid());
                     editor.putString("login","yes");
                     editor.apply();
                 }else{
