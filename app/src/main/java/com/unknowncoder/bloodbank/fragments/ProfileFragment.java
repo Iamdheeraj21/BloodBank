@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class ProfileFragment extends Fragment {
     String CurrentUser;
     private StorageTask uploadTask;
     StorageReference UserProfileRef;
+    ImageView back_button;
     private static final int IMAGE_REQUEST=1;
     Uri ImageUri;
     @Override
@@ -65,6 +67,11 @@ public class ProfileFragment extends Fragment {
         circleImageView.setOnClickListener(v -> {
             setTheProfileImage();
         });
+        back_button.setOnClickListener(v->{
+            HomeFragment homeFragment=new HomeFragment();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    homeFragment).commit();
+        });
         return view;
     }
 
@@ -73,6 +80,7 @@ public class ProfileFragment extends Fragment {
         sharedPreferences=getContext().getSharedPreferences("MyData", Context.MODE_PRIVATE);
         textView_email=view.findViewById(R.id.textView_email);
         textView_name=view.findViewById(R.id.textView_name);
+        back_button=view.findViewById(R.id.back_button);
         textView_dob=view.findViewById(R.id.textView_dob);
         circleImageView=view.findViewById(R.id.imageview2);
         textView_bloodgroup=view.findViewById(R.id.textView_bloodGroup);
@@ -121,43 +129,6 @@ public class ProfileFragment extends Fragment {
         textView_dob.setText(sharedPreferences.getString("dob",""));
         textView_number.setText(sharedPreferences.getString("mobilenumber",""));
     }
-//    private void getInformationOfUser()
-//    {
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot)
-//            {
-//                if(snapshot.exists())
-//                {
-//                    String email=snapshot.child("email").getValue().toString();
-//                    String fullname=snapshot.child("fullname").getValue().toString();
-//                    String imageUrl=snapshot.child("imageurl").getValue().toString();
-//                    String dob=snapshot.child("dob").getValue().toString();
-//                    String phonenumber=snapshot.child("mobilenumber").getValue().toString();
-//                    String bloodGroup=snapshot.child("bloodgroup").getValue().toString();
-//                    String gender=snapshot.child("gender").getValue().toString();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error)
-//            {
-//                Alerter.create(getParentFragment().getActivity())
-//                        .setTitle("Alert")
-//                        .setText(error.getMessage())
-//                        .setIcon(R.drawable.alerticon)
-//                        .setBackgroundColorRes(R.color.black)
-//                        .setDuration(2000)
-//                        .setOnClickListener(v -> {
-//                        }).setOnShowListener(() -> {
-//                }).setOnHideListener(() -> {
-//                }).show();
-//            }
-//        });
-//    }
-
     private void removeImage()
     {
         databaseReference= FirebaseDatabase.getInstance().getReference().child("AllUser").child(CurrentUser).child("imageurl");

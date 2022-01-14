@@ -1,5 +1,7 @@
 package com.unknowncoder.bloodbank.fragments;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,5 +22,17 @@ public class MapFragment extends Fragment {
 
     private void initViewS() {
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE );
+        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (statusOfGPS){
+
+        }else {
+
+        }
     }
 }
