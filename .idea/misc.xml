@@ -11,6 +11,7 @@
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/editext_shpe.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/editext_white_shpe.xml" value="0.19375" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/gender_bck.xml" value="0.19375" />
+        <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/ic_location_off.xml" value="0.19375" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/ic_round_arrow_back_24.xml" value="0.19375" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/image_background.xml" value="0.2203125" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/drawable/navigation_view.xml" value="0.2203125" />
@@ -26,10 +27,11 @@
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/blood_donor.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/blood_request_alertbox.xml" value="0.25" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/customtoast.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/fragment_home.xml" value="0.16" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/fragment_map.xml" value="0.1734375" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/fragment_profile.xml" value="0.18" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/fragment_search.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/gps_onoff.xml" value="0.1734375" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/lertbox.xml" value="0.15" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/requests.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/Desktop/Projects/BloodBank/Department/app/src/main/res/layout/start_activity.xml" value="0.1734375" />
