@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import com.unknowncoder.bloodbank.Adapter.BloodRequest;
+import com.unknowncoder.bloodbank.Utils.BloodRequest;
 import com.unknowncoder.bloodbank.Adapter.BloodRequestAdapter;
 
 public class BloodRequestsActivity extends AppCompatActivity

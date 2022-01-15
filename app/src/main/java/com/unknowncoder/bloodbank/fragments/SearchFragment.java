@@ -24,9 +24,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import com.unknowncoder.bloodbank.Adapter.BloodDonor;
 import com.unknowncoder.bloodbank.Blood_Donor_profile;
 import com.unknowncoder.bloodbank.R;
+import com.unknowncoder.bloodbank.Utils.BloodDonor;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

@@ -1,4 +1,4 @@
-package com.unknowncoder.bloodbank.Adapter;
+package com.unknowncoder.bloodbank.Utils;
 
 public class BloodRequest
 {
